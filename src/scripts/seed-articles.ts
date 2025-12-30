@@ -763,7 +763,7 @@ async function seed() {
           category: categoryId as any,
           author: authorId as any,
           ...(featuredImageId && { featuredImage: featuredImageId }),
-        },
+        } as any,
         locale: 'en',
       })
 
