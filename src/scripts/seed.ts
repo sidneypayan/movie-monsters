@@ -116,6 +116,7 @@ async function seed() {
         password: 'password123',
         roles: ['admin'] as any,
       },
+      draft: false,
     })
     authorId = user.id
     console.log('✅ Created test user: author@test.com')
