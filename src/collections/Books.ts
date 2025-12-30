@@ -61,8 +61,8 @@ export const Books: CollectionConfig = {
           name: 'url',
           type: 'text',
           required: true,
-          validate: (value: string) => {
-            if (!value?.startsWith('http')) {
+          validate: (value: unknown) => {
+            if (typeof value === 'string' && !value.startsWith('http')) {
               return 'Must be a valid URL starting with http:// or https://'
             }
             return true

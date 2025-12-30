@@ -1,0 +1,61 @@
+{
+  "home": {
+    "title": "MOVIE MONSTERS",
+    "subtitle": "Chroniques du cinéma fantastique classique",
+    "featured": "À la une",
+    "categories": "Catégories",
+    "articles": "Articles",
+    "recent": "Récents",
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Recevez nos derniers articles sur le cinéma fantastique classique directement dans votre boîte mail."
+  },
+  "about": {
+    "title": "À PROPOS",
+    "subtitle": "Chroniques des ténèbres cinématographiques",
+    "siteTitle": "MOVIE MONSTERS",
+    "siteDescription1": "Bienvenue dans les archives obscures du cinéma fantastique classique. Ce site est dédié à l'exploration des chefs-d'œuvre gothiques qui ont façonné l'imaginaire horrifique du 20ème siècle.",
+    "siteDescription2": "Des studios Universal aux productions Hammer, en passant par les créations italiennes et hispano-mexicaines, nous exhumons les créatures légendaires qui continuent de hanter nos écrans et nos cauchemars.",
+    "siteQuote": "Les monstres ne sont jamais vraiment morts. Ils attendent simplement dans l'ombre, prêts à ressurgir pour une nouvelle génération de spectateurs...",
+    "siteDescription3": "Rejoignez-nous dans cette exploration des ombres, où chaque article dévoile un nouveau chapitre de l'histoire du cinéma d'horreur classique."
+  },
+  "navigation": {
+    "home": "Accueil",
+    "about": "À propos",
+    "books": "Livres",
+    "articles": "Articles"
+  },
+  "footer": {
+    "about": "À propos",
+    "description": "Un blog dédié aux films de monstres classiques et au cinéma d'horreur gothique.",
+    "links": "Liens",
+    "home": "Accueil",
+    "aboutPage": "À propos",
+    "books": "Livres",
+    "legal": "Légal",
+    "copyright": "Movie Monsters. Tous droits réservés."
+  },
+  "newsletter": {
+    "emailPlaceholder": "Votre adresse e-mail",
+    "subscribing": "Inscription en cours...",
+    "subscribe": "S'abonner",
+    "success": "Merci de votre inscription !",
+    "error": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "article": {
+    "publishedOn": "Publié le",
+    "readMore": "Lire la suite",
+    "relatedArticles": "Articles connexes",
+    "shareArticle": "Partager cet article",
+    "by": "Par",
+    "similarArticles": "Articles similaires"
+  },
+  "category": {
+    "articlesIn": "Articles dans",
+    "articleCount": "{count, plural, =0 {Aucun article} =1 {1 article} other {# articles}}",
+    "noArticles": "Aucun article dans cette catégorie pour le moment."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite"
+  }
+}

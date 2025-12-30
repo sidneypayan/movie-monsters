@@ -1,0 +1,61 @@
+{
+  "home": {
+    "title": "MOVIE MONSTERS",
+    "subtitle": "Chronicles of Classic Fantasy Cinema",
+    "featured": "Featured",
+    "categories": "Categories",
+    "articles": "Articles",
+    "recent": "Recent Articles",
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Receive our latest articles on classic fantasy cinema directly in your inbox."
+  },
+  "about": {
+    "title": "ABOUT",
+    "subtitle": "Chronicles of Cinematic Darkness",
+    "siteTitle": "MOVIE MONSTERS",
+    "siteDescription1": "Welcome to the dark archives of classic fantasy cinema. This site is dedicated to exploring the gothic masterpieces that shaped the horror imagination of the 20th century.",
+    "siteDescription2": "From Universal Studios to Hammer Productions, passing through Italian and Spanish-Mexican creations, we unearth the legendary creatures that continue to haunt our screens and nightmares.",
+    "siteQuote": "Monsters never truly die. They simply wait in the shadows, ready to resurface for a new generation of viewers...",
+    "siteDescription3": "Join us in this exploration of shadows, where each article reveals a new chapter in the history of classic horror cinema."
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "books": "Books",
+    "articles": "Articles"
+  },
+  "footer": {
+    "about": "About",
+    "description": "A blog dedicated to classic monster movies and gothic horror cinema.",
+    "links": "Links",
+    "home": "Home",
+    "aboutPage": "About",
+    "books": "Books",
+    "legal": "Legal",
+    "copyright": "Movie Monsters. All rights reserved."
+  },
+  "newsletter": {
+    "emailPlaceholder": "Your email address",
+    "subscribing": "Subscribing...",
+    "subscribe": "Subscribe",
+    "success": "Thank you for subscribing!",
+    "error": "An error occurred. Please try again."
+  },
+  "article": {
+    "publishedOn": "Published on",
+    "readMore": "Read more",
+    "relatedArticles": "Related Articles",
+    "shareArticle": "Share this article",
+    "by": "By",
+    "similarArticles": "Similar Articles"
+  },
+  "category": {
+    "articlesIn": "Articles in",
+    "articleCount": "{count, plural, =0 {No articles} =1 {1 article} other {# articles}}",
+    "noArticles": "No articles in this category yet."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred"
+  }
+}

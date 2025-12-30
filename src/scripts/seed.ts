@@ -106,7 +106,7 @@ async function seed() {
     limit: 1,
   })
 
-  let authorId: string
+  let authorId: number | string
   if (users.length === 0) {
     console.log('👤 Creating test user...')
     const user = await payload.create({
@@ -114,7 +114,7 @@ async function seed() {
       data: {
         email: 'author@test.com',
         password: 'password123',
-        roles: ['admin'],
+        roles: ['admin'] as any,
       },
     })
     authorId = user.id
@@ -136,7 +136,7 @@ async function seed() {
     process.exit(1)
   }
 
-  const categoryId = categories[0].id
+  const categoryId: number | string = categories[0].id
 
   // Upload test images
   console.log('🖼️  Uploading test images...')
@@ -156,6 +156,7 @@ async function seed() {
     limit: 1,
   })
 
+  let featuredImageId: number | string | undefined
   if (existingMedia.length > 0) {
     console.log('⏭️  Test image already exists, using existing...')
     featuredImageId = existingMedia[0].id

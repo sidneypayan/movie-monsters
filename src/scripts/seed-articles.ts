@@ -681,7 +681,7 @@ async function seed() {
     limit: 1,
   })
 
-  let categoryId: string
+  let categoryId: number | string
   if (categories.length > 0) {
     categoryId = categories[0].id
     console.log(`📁 Using existing category: ${categories[0].name}`)
@@ -710,12 +710,12 @@ async function seed() {
     process.exit(1)
   }
 
-  const authorId = users[0].id
+  const authorId: number | string = users[0].id
   console.log(`👤 Using author: ${users[0].email}`)
 
   for (const article of articles) {
     try {
-      let featuredImageId: string | undefined
+      let featuredImageId: number | string | undefined
 
       // Download and upload featured image if URL is provided
       if ('featuredImageUrl' in article && article.featuredImageUrl) {
@@ -756,12 +756,12 @@ async function seed() {
           title: article.title.en,
           slug: article.slug,
           excerpt: article.excerpt.en,
-          content: article.content.en,
+          content: article.content.en as any,
           featured: article.featured,
-          status: article.status,
+          status: article.status as any,
           publishedDate: article.publishedDate,
-          category: categoryId,
-          author: authorId,
+          category: categoryId as any,
+          author: authorId as any,
           ...(featuredImageId && { featuredImage: featuredImageId }),
         },
         locale: 'en',
@@ -775,7 +775,7 @@ async function seed() {
           title: article.title.fr,
           slug: article.slug,
           excerpt: article.excerpt.fr,
-          content: article.content.fr,
+          content: article.content.fr as any,
         },
         locale: 'fr',
       })

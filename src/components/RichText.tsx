@@ -6,7 +6,7 @@ import Image from 'next/image'
 const jsxConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
   ...defaultConverters,
   blocks: {
-    'image-gallery': ({ node }) => {
+    'image-gallery': ({ node }: { node: any }) => {
       const { images, columns } = node.fields as any
       return (
         <div className={`grid grid-cols-${columns} gap-4 my-8`}>
@@ -32,7 +32,7 @@ const jsxConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
         </div>
       )
     },
-    youtube: ({ node }) => {
+    youtube: ({ node }: { node: any }) => {
       const { videoId, caption } = node.fields as any
       return (
         <div className="my-8">

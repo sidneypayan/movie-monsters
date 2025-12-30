@@ -25,7 +25,7 @@ export const Users: CollectionConfig = {
       required: true,
       saveToJWT: true,
       access: {
-        update: ({ req: { user } }) => user?.roles?.includes('admin'),
+        update: ({ req: { user } }) => !!user?.roles?.includes('admin'),
       },
     },
   ],
