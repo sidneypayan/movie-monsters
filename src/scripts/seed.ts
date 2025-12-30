@@ -112,6 +112,7 @@ async function seed() {
     const user = await payload.create({
       collection: 'users',
       data: {
+        name: 'Test Author',
         email: 'author@test.com',
         password: 'password123',
         roles: ['admin'] as any,
@@ -145,8 +146,6 @@ async function seed() {
   if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir, { recursive: true })
   }
-
-  let featuredImageId: string
 
   // Check if test image already exists
   const { docs: existingMedia } = await payload.find({
