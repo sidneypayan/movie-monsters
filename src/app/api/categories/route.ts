@@ -4,7 +4,8 @@ import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const locale = searchParams.get('locale') || 'fr'
+  const localeParam = searchParams.get('locale') || 'fr'
+  const locale = (localeParam === 'en' || localeParam === 'fr') ? localeParam : 'fr' as 'en' | 'fr'
 
   const payload = await getPayload({ config })
 
