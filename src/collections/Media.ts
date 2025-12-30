@@ -4,13 +4,48 @@ export const Media: CollectionConfig = {
   slug: 'media',
   access: {
     read: () => true,
+    create: ({ req: { user } }) => !!user,
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => !!user,
+  },
+  upload: {
+    staticDir: 'media',
+    mimeTypes: ['image/*'],
+    imageSizes: [
+      {
+        name: 'thumbnail',
+        width: 400,
+        height: 300,
+        position: 'centre',
+      },
+      {
+        name: 'card',
+        width: 768,
+        height: 512,
+        position: 'centre',
+      },
+      {
+        name: 'hero',
+        width: 1920,
+        height: 1080,
+        position: 'centre',
+      },
+    ],
+    adminThumbnail: 'thumbnail',
+    focalPoint: true,
+    crop: true,
   },
   fields: [
     {
       name: 'alt',
       type: 'text',
       required: true,
+      localized: true,
+    },
+    {
+      name: 'caption',
+      type: 'text',
+      localized: true,
     },
   ],
-  upload: true,
 }

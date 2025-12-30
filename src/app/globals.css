@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-text-primary;
+  }
+}
+
+@layer components {
+  .neo-gothic-title {
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .prose {
+    @apply max-w-none;
+  }
+
+  .prose h2 {
+    @apply text-3xl font-light mt-8 mb-4 text-text-primary;
+  }
+
+  .prose h3 {
+    @apply text-2xl font-light mt-6 mb-3 text-text-primary;
+  }
+
+  .prose h4 {
+    @apply text-xl font-light mt-4 mb-2 text-text-primary;
+  }
+
+  .prose p {
+    @apply mb-4 leading-relaxed text-text-secondary;
+  }
+
+  .prose a {
+    @apply text-accent-red underline hover:text-accent-red-dark transition-colors;
+  }
+
+  .prose img {
+    @apply rounded-sm my-6;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mb-4 ml-6 text-text-secondary;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
+  .prose blockquote {
+    @apply border-l-2 border-accent-red pl-4 italic my-6 text-text-secondary;
+  }
+}
+
+@keyframes fly {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(100px, -50px) rotate(10deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50px, -100px) rotate(-10deg);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(150px, 50px) rotate(5deg);
+    opacity: 0.5;
+  }
+}
+
+@keyframes crawl-down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes swing {
+  0%, 100% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes fog-drift {
+  0% {
+    transform: translateX(-100%) translateY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(100%) translateY(-20px);
+    opacity: 0;
+  }
+}
+
+@keyframes lightning {
+  0%, 10%, 20%, 100% {
+    opacity: 0;
+  }
+  5%, 15% {
+    opacity: 1;
+  }
+}
+
+@keyframes drip {
+  0% {
+    transform: translateY(0) scaleY(1);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(50px) scaleY(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(60px) scaleY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  60% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 1;
+  }
+}
+
+@keyframes scratch {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}

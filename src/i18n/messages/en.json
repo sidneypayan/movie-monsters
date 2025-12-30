@@ -1,0 +1,52 @@
+{
+  "navigation": {
+    "siteName": "Movie Monsters",
+    "home": "Home",
+    "about": "About",
+    "books": "Books",
+    "articles": "Articles"
+  },
+  "home": {
+    "hero": {
+      "title": "Retro Fantasy Cinema",
+      "subtitle": "Exploring the golden age of horror and fantasy films"
+    },
+    "featured": "Featured Articles",
+    "latest": "Latest Articles"
+  },
+  "newsletter": {
+    "title": "Subscribe to our Newsletter",
+    "description": "Get the latest articles delivered to your inbox",
+    "placeholder": "Enter your email",
+    "subscribe": "Subscribe",
+    "sending": "Sending...",
+    "success": "Thank you for subscribing!",
+    "error": "Subscription failed. Please try again."
+  },
+  "search": {
+    "placeholder": "Search articles...",
+    "loading": "Searching...",
+    "noResults": "No articles found"
+  },
+  "share": {
+    "title": "Share this article"
+  },
+  "books": {
+    "title": "Books",
+    "platforms": {
+      "amazon": "Buy on Amazon",
+      "fnac": "Buy on Fnac",
+      "cultura": "Buy on Cultura"
+    }
+  },
+  "footer": {
+    "about": "About",
+    "description": "A blog dedicated to retro fantasy cinema",
+    "links": "Quick Links",
+    "home": "Home",
+    "aboutPage": "About",
+    "books": "Books",
+    "legal": "Legal",
+    "copyright": "All rights reserved"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "navigation": {
+    "siteName": "Movie Monsters",
+    "home": "Accueil",
+    "about": "À propos",
+    "books": "Livres",
+    "articles": "Articles"
+  },
+  "home": {
+    "hero": {
+      "title": "Cinéma Fantastique Rétro",
+      "subtitle": "À la découverte de l'âge d'or du cinéma d'horreur et fantastique"
+    },
+    "featured": "Articles en vedette",
+    "latest": "Derniers articles"
+  },
+  "newsletter": {
+    "title": "Abonnez-vous à notre newsletter",
+    "description": "Recevez les derniers articles dans votre boîte mail",
+    "placeholder": "Entrez votre email",
+    "subscribe": "S'abonner",
+    "sending": "Envoi...",
+    "success": "Merci de votre abonnement !",
+    "error": "L'abonnement a échoué. Veuillez réessayer."
+  },
+  "search": {
+    "placeholder": "Rechercher des articles...",
+    "loading": "Recherche...",
+    "noResults": "Aucun article trouvé"
+  },
+  "share": {
+    "title": "Partager cet article"
+  },
+  "books": {
+    "title": "Livres",
+    "platforms": {
+      "amazon": "Acheter sur Amazon",
+      "fnac": "Acheter sur Fnac",
+      "cultura": "Acheter sur Cultura"
+    }
+  },
+  "footer": {
+    "about": "À propos",
+    "description": "Un blog dédié au cinéma fantastique rétro",
+    "links": "Liens rapides",
+    "home": "Accueil",
+    "aboutPage": "À propos",
+    "books": "Livres",
+    "legal": "Mentions légales",
+    "copyright": "Tous droits réservés"
+  }
+}
