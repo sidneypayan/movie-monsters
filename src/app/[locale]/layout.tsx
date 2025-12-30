@@ -4,7 +4,14 @@ import { notFound } from 'next/navigation'
 import { locales } from '@/i18n/request'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+import { Creepster } from 'next/font/google'
 import '@/app/globals.css'
+
+const creepster = Creepster({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-creepster',
+})
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
@@ -29,7 +36,7 @@ export default async function LocaleLayout({
   const messages = await getMessages()
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={creepster.variable}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <Navigation locale={locale as 'en' | 'fr'} />

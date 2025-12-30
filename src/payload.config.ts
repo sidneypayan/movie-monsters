@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { en } from '@payloadcms/translations/languages/en'
 import { fr } from '@payloadcms/translations/languages/fr'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -61,5 +62,28 @@ export default buildConfig({
     fallbackLanguage: 'fr',
   },
 
-  plugins: [],
+  plugins: [
+    s3Storage({
+      collections: {
+        media: {
+          disableLocalStorage: true,
+          prefix: 'images',
+          generateFileURL: ({ filename, prefix = '' }) => {
+            const path = prefix ? `${prefix}/` : ''
+            return `${process.env.CLOUDFLARE_R2_PUBLIC_URL}/${path}${filename}`
+          },
+        },
+      },
+      bucket: process.env.CLOUDFLARE_R2_BUCKET || '',
+      config: {
+        credentials: {
+          accessKeyId: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY || '',
+        },
+        region: 'auto',
+        endpoint: process.env.CLOUDFLARE_R2_ENDPOINT || '',
+        forcePathStyle: true,
+      },
+    }),
+  ],
 })

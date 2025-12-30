@@ -213,7 +213,7 @@ export default async function HomePage({ locale }: HomePageProps) {
             </div>
           </div>
 
-          <div className="max-w-7xl mx-auto space-y-8">
+          <div className="max-w-5xl mx-auto space-y-6">
             {featuredArticles.slice(1).map((article, index) => {
               const featuredImage = typeof article.featuredImage === 'object' && article.featuredImage !== null
                 ? article.featuredImage
@@ -225,15 +225,15 @@ export default async function HomePage({ locale }: HomePageProps) {
                 <a
                   key={article.id}
                   href={`/${locale}/articles/${article.slug}`}
-                  className={`group flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center hover:scale-[1.02] transition-all duration-500 p-6 rounded-3xl border border-transparent hover:border-accent-red/30 hover:shadow-[0_0_40px_rgba(220,38,38,0.15)]`}
+                  className={`group flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 items-center hover:scale-[1.02] transition-all duration-500 p-4 rounded-2xl border border-transparent hover:border-accent-red/30 hover:shadow-[0_0_40px_rgba(220,38,38,0.15)]`}
                   style={{
                     marginLeft: isEven ? '0' : 'auto',
                     marginRight: isEven ? 'auto' : '0',
-                    maxWidth: index % 3 === 0 ? '100%' : '90%',
+                    maxWidth: index % 3 === 0 ? '100%' : '85%',
                   }}
                 >
                   {featuredImage?.url && (
-                    <div className="relative w-full md:w-1/2 aspect-[4/3] overflow-hidden rounded-3xl">
+                    <div className="relative w-full md:w-2/5 aspect-[16/10] overflow-hidden rounded-2xl">
                       <Image
                         src={featuredImage.url}
                         alt={featuredImage.alt || article.title || ''}
@@ -243,12 +243,12 @@ export default async function HomePage({ locale }: HomePageProps) {
                       <div className="absolute inset-0 bg-gradient-to-br from-gothic-purple/30 via-transparent to-gothic-crimson/30 group-hover:opacity-0 transition-opacity duration-500" />
                     </div>
                   )}
-                  <div className="w-full md:w-1/2 space-y-4 p-6">
-                    <h3 className="text-2xl md:text-3xl font-light text-text-primary group-hover:text-white transition-colors uppercase tracking-wide">
+                  <div className="w-full md:w-3/5 space-y-3 p-4">
+                    <h3 className="text-xl md:text-2xl font-light text-text-primary group-hover:text-white transition-colors uppercase tracking-wide">
                       {article.title}
                     </h3>
                     {article.excerpt && (
-                      <p className="text-base text-text-secondary font-light leading-relaxed">
+                      <p className="text-sm text-text-secondary font-light leading-relaxed line-clamp-2">
                         {article.excerpt}
                       </p>
                     )}
