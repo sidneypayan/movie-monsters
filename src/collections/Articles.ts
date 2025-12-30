@@ -14,27 +14,27 @@ const ImageGalleryBlock = {
   fields: [
     {
       name: 'images',
-      type: 'array',
+      type: 'array' as const,
       label: 'Images',
       minRows: 2,
       maxRows: 12,
       fields: [
         {
           name: 'image',
-          type: 'upload',
-          relationTo: 'media',
+          type: 'upload' as const,
+          relationTo: 'media' as const,
           required: true,
         },
         {
           name: 'caption',
-          type: 'text',
+          type: 'text' as const,
           localized: true,
         },
       ],
     },
     {
       name: 'columns',
-      type: 'select',
+      type: 'select' as const,
       label: 'Number of Columns',
       options: [
         { label: '2 Columns', value: '2' },
@@ -53,7 +53,7 @@ const YouTubeBlock = {
   fields: [
     {
       name: 'videoId',
-      type: 'text',
+      type: 'text' as const,
       label: 'YouTube Video ID',
       required: true,
       admin: {
@@ -62,7 +62,7 @@ const YouTubeBlock = {
     },
     {
       name: 'caption',
-      type: 'text',
+      type: 'text' as const,
       label: 'Caption',
       localized: true,
     },
