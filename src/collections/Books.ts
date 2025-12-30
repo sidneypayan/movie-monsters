@@ -61,7 +61,7 @@ export const Books: CollectionConfig = {
           name: 'url',
           type: 'text',
           required: true,
-          validate: (value) => {
+          validate: (value: string) => {
             if (!value?.startsWith('http')) {
               return 'Must be a valid URL starting with http:// or https://'
             }
@@ -73,7 +73,7 @@ export const Books: CollectionConfig = {
           type: 'text',
           localized: true,
           admin: {
-            condition: (data, siblingData) => siblingData?.platform === 'other',
+            condition: (_data: any, siblingData: any) => siblingData?.platform === 'other',
           },
         },
       ],
