@@ -41,19 +41,19 @@ export default function Navigation({ locale }: { locale: 'en' | 'fr' }) {
           <div className="flex items-center gap-8">
             <Link
               href={`/${locale}`}
-              className="text-sm uppercase tracking-wider text-text-secondary hover:text-text-primary transition-colors font-light"
+              className="text-lg uppercase tracking-wider text-text-primary hover:text-accent-red transition-colors neo-gothic-title"
             >
               {t('home')}
             </Link>
             <Link
               href={`/${locale}/books`}
-              className="text-sm uppercase tracking-wider text-text-secondary hover:text-text-primary transition-colors font-light"
+              className="text-lg uppercase tracking-wider text-text-primary hover:text-accent-red transition-colors neo-gothic-title"
             >
               {t('books')}
             </Link>
             <Link
               href={`/${locale}/about`}
-              className="text-sm uppercase tracking-wider text-text-secondary hover:text-text-primary transition-colors font-light"
+              className="text-lg uppercase tracking-wider text-text-primary hover:text-accent-red transition-colors neo-gothic-title"
             >
               {t('about')}
             </Link>

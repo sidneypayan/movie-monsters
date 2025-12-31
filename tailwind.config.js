@@ -8,10 +8,10 @@ module.exports = {
     extend: {
       colors: {
         dark: {
-          bg: '#0A0A0A',
-          surface: '#0F0A0F',
-          elevated: '#1A141A',
-          border: '#2A1F2A',
+          bg: '#1A1A1A',
+          surface: '#242424',
+          elevated: '#2E2E2E',
+          border: '#3A3A3A',
         },
         gothic: {
           purple: '#1A0A1F',

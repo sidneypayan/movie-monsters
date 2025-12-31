@@ -59,17 +59,30 @@ export default async function HomePage({ locale }: HomePageProps) {
         {/* Additional atmospheric layers */}
         <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-accent-purple/20 to-transparent blur-3xl" />
 
-        {/* Background video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-20 grayscale pointer-events-none scale-125"
-          style={{ objectPosition: '50% 35%' }}
-        >
-          <source src="/videos/hero-bg.mp4" type="video/mp4" />
-        </video>
+        {/* Background video with cinema screen effect */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Video container */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-30 scale-125"
+            style={{
+              objectPosition: '50% 35%',
+              filter: 'contrast(1.3) brightness(1.2)'
+            }}
+          >
+            <source src="/videos/hero-bg.mp4" type="video/mp4" />
+          </video>
+
+          {/* Vignette effect for cinema screen */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 z-10" />
+
+          {/* Film grain overlay (subtle) */}
+          <div className="absolute inset-0 opacity-[0.03] z-10 mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuNSIvPjwvc3ZnPg==')]" />
+        </div>
 
         {/* Gothic ornamental top border */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-red/50 to-transparent" />
@@ -112,7 +125,7 @@ export default async function HomePage({ locale }: HomePageProps) {
                       src={firstFeaturedImage.url}
                       alt={firstFeaturedImage.alt || firstFeatured.title || ''}
                       fill
-                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                      className="object-cover transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-accent-red/10 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
@@ -138,21 +151,11 @@ export default async function HomePage({ locale }: HomePageProps) {
 
       {/* Categories - Flowing carousel */}
       {categories.length > 0 && (
-        <section className="py-20 relative overflow-hidden px-4">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-accent-purple/30 to-transparent blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-gothic-crimson/20 to-transparent blur-3xl" />
-
+        <section className="py-20 relative px-4">
           <div className="container mx-auto px-4 mb-12">
-            <h2 className="text-4xl md:text-5xl font-light text-text-primary neo-gothic-title text-center drop-shadow-[0_0_20px_rgba(220,38,38,0.2)]">
+            <h2 className="text-4xl md:text-5xl font-light text-text-primary neo-gothic-title text-center drop-shadow-[0_0_20px_rgba(220,38,38,0.2)] oozing-divider">
               {t('categories')}
             </h2>
-
-            {/* Gothic decorative element */}
-            <div className="flex justify-center mt-6">
-              <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-              <div className="w-2 h-2 border border-accent-red rotate-45 mx-3"></div>
-              <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-            </div>
           </div>
 
           <div className="flex gap-6 overflow-x-auto pb-6 py-4 scrollbar-hide justify-center">
@@ -172,7 +175,7 @@ export default async function HomePage({ locale }: HomePageProps) {
                       <img
                         src={featuredImage.url}
                         alt={featuredImage.alt || category.name || ''}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100"
+                        className="w-full h-full object-cover transition-all duration-700 opacity-80 group-hover:opacity-100"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-gothic-purple/50 to-transparent" />
                       <h3 className="absolute bottom-8 left-8 right-8 font-light text-lg uppercase tracking-wider text-white">
@@ -194,23 +197,12 @@ export default async function HomePage({ locale }: HomePageProps) {
       )}
 
       {/* Articles - Staggered flowing layout */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gothic-purple/20 to-transparent" />
-        <div className="absolute top-1/2 left-0 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-accent-red/15 to-transparent blur-3xl" />
-        <div className="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full bg-gradient-to-l from-accent-purple/15 to-transparent blur-3xl" />
-
+      <section className="py-20 relative">
         <div className="container mx-auto px-4 relative z-10">
           <div className="mb-16 max-w-4xl mx-auto">
-            <h2 className="text-5xl md:text-6xl font-light text-text-primary neo-gothic-title mb-6 text-center drop-shadow-[0_0_25px_rgba(220,38,38,0.25)]">
+            <h2 className="text-5xl md:text-6xl font-light text-text-primary neo-gothic-title mb-6 text-center drop-shadow-[0_0_25px_rgba(220,38,38,0.25)] oozing-divider">
               {t('articles')}
             </h2>
-
-            {/* Gothic decorative element */}
-            <div className="flex justify-center mt-6">
-              <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-              <div className="w-2 h-2 border border-accent-red rotate-45 mx-3"></div>
-              <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-            </div>
           </div>
 
           <div className="max-w-5xl mx-auto space-y-6">
@@ -238,7 +230,7 @@ export default async function HomePage({ locale }: HomePageProps) {
                         src={featuredImage.url}
                         alt={featuredImage.alt || article.title || ''}
                         fill
-                        className="object-cover grayscale group-hover:grayscale-0 opacity-70 group-hover:opacity-100 transition-all duration-700"
+                        className="object-cover opacity-90 group-hover:opacity-100 transition-all duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-br from-gothic-purple/30 via-transparent to-gothic-crimson/30 group-hover:opacity-0 transition-opacity duration-500" />
                     </div>
@@ -272,21 +264,18 @@ export default async function HomePage({ locale }: HomePageProps) {
       {/* Recent - Flowing grid */}
       {recentArticles.length > 0 && (
         <section className="py-20 relative">
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-accent-red/25 to-transparent blur-3xl" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-gothic-purple/20 to-transparent blur-3xl" />
-
           <div className="container mx-auto px-4 relative z-10">
             <div className="mb-16 max-w-4xl mx-auto">
-              <h2 className="text-5xl md:text-6xl font-light text-text-primary neo-gothic-title mb-6 text-center drop-shadow-[0_0_25px_rgba(220,38,38,0.25)]">
-                {t('recent')}
+              <h2 className="text-5xl md:text-6xl font-light text-text-primary neo-gothic-title text-center drop-shadow-[0_0_25px_rgba(220,38,38,0.25)] oozing-divider">
+                {t('recent').split(' ').map((word, i, arr) => {
+                  const isLastWord = i === arr.length - 1
+                  return (
+                    <span key={i} className={isLastWord ? 'text-accent-red' : ''}>
+                      {word}{i < arr.length - 1 ? ' ' : ''}
+                    </span>
+                  )
+                })}
               </h2>
-
-              {/* Gothic decorative element */}
-              <div className="flex justify-center mt-6">
-                <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-                <div className="w-2 h-2 border border-accent-red rotate-45 mx-3"></div>
-                <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-              </div>
             </div>
 
             <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -303,23 +292,18 @@ export default async function HomePage({ locale }: HomePageProps) {
       )}
 
       {/* Newsletter - Organic centered */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent-red/20 to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent-red/20 blur-3xl" />
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-gothic-purple/15 to-transparent blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-tl from-accent-purple/15 to-transparent blur-3xl" />
-
+      <section className="py-32 relative">
         <div className="container mx-auto px-4 max-w-3xl text-center relative z-10">
-          <h2 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title mb-8 drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]">
-            {t('newsletter')}
+          <h2 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title mb-8 drop-shadow-[0_0_30px_rgba(220,38,38,0.3)] oozing-divider">
+            {t('newsletter').split(' ').map((word, i, arr) => {
+              const isLastWord = i === arr.length - 1
+              return (
+                <span key={i} className={isLastWord ? 'text-accent-red' : ''}>
+                  {word}{i < arr.length - 1 ? ' ' : ''}
+                </span>
+              )
+            })}
           </h2>
-
-          {/* Gothic decorative element */}
-          <div className="flex justify-center mt-6 mb-12">
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-            <div className="w-2 h-2 border border-accent-red rotate-45 mx-3"></div>
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-          </div>
 
           <p className="text-xl text-text-secondary font-light mb-12 leading-relaxed drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
             {t('newsletterDescription')}

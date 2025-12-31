@@ -78,10 +78,10 @@ export default async function ArticlePage({ slug, locale }: ArticlePageProps) {
                 src={featuredImage.url}
                 alt={featuredImage.alt || article.title || ''}
                 fill
-                className="object-cover opacity-40"
+                className="object-cover opacity-60"
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-dark-bg/40 via-dark-bg/70 to-dark-bg z-0" />
+            <div className="absolute inset-0 bg-gradient-to-b from-dark-bg/30 via-dark-bg/60 to-dark-bg z-0" />
           </>
         )}
 
@@ -127,7 +127,7 @@ export default async function ArticlePage({ slug, locale }: ArticlePageProps) {
               src={featuredImage.url}
               alt={featuredImage.alt || article.title || ''}
               fill
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              className="object-cover transition-all duration-700"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-br from-gothic-purple/20 via-transparent to-gothic-crimson/20" />
@@ -137,14 +137,21 @@ export default async function ArticlePage({ slug, locale }: ArticlePageProps) {
 
       {/* Article Content */}
       <div className="container mx-auto px-4 py-16 max-w-4xl relative z-10">
-        <div className="prose prose-invert prose-lg max-w-none font-light">
+        <div className="prose prose-invert prose-xl max-w-none">
           <RichText content={article.content} />
         </div>
 
         {/* Share Buttons */}
         <div className="mt-16 pt-8 border-t border-dark-border">
           <h3 className="text-xl font-light mb-6 text-text-primary uppercase tracking-wider">
-            {t('shareArticle')}
+            {t('shareArticle').split(' ').map((word, i, arr) => {
+              const isLastWord = i === arr.length - 1
+              return (
+                <span key={i} className={isLastWord ? 'text-accent-red' : ''}>
+                  {word}{i < arr.length - 1 ? ' ' : ''}
+                </span>
+              )
+            })}
           </h3>
           <ShareButtons
             url={`https://yoursite.com/${locale}/articles/${article.slug}`}

@@ -21,22 +21,19 @@ export default async function BooksPage({ locale }: BooksPageProps) {
 
   return (
     <div className="bg-dark-bg min-h-screen pt-32 pb-20">
-      {/* Hero Section */}
-      <section className="relative mb-20 overflow-hidden">
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-accent-purple/30 to-transparent blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-gradient-to-tl from-accent-red/20 to-transparent blur-3xl" />
+      {/* Organic gradient blobs */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-gothic-purple/20 to-transparent blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[800px] h-[800px] rounded-full bg-gradient-to-tl from-gothic-crimson/15 to-transparent blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-accent-purple/5 blur-2xl" />
+      </div>
 
+      {/* Hero Section */}
+      <section className="relative mb-20">
         <div className="container mx-auto px-4 relative z-10">
-          <h1 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title text-center mb-6 drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]">
+          <h1 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title text-center drop-shadow-[0_0_30px_rgba(220,38,38,0.3)] oozing-divider">
             {t('title')}
           </h1>
-
-          {/* Gothic decorative element */}
-          <div className="flex justify-center mt-6">
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-            <div className="w-2 h-2 border border-accent-red rotate-45 mx-3"></div>
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-accent-red to-transparent"></div>
-          </div>
         </div>
       </section>
 
@@ -60,7 +57,7 @@ export default async function BooksPage({ locale }: BooksPageProps) {
                       src={coverImage.url}
                       alt={coverImage.alt || book.title || ''}
                       fill
-                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                      className="object-cover transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
                   </div>

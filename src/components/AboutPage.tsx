@@ -41,10 +41,9 @@ export default async function AboutPage({ locale }: AboutPageProps) {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header Section */}
         <div className="text-center mb-20">
-          <h1 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title mb-6">
+          <h1 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title oozing-divider">
             {t('title')}
           </h1>
-          <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-accent-purple to-transparent mx-auto rounded-full mb-8" />
           <p className="text-xl text-text-secondary font-light max-w-2xl mx-auto">
             {t('subtitle')}
           </p>
