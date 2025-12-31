@@ -91,56 +91,6 @@ export default async function HomePage({ locale }: HomePageProps) {
         backgroundImage: 'url(https://pub-cf1d1f8a481e4af89879163f7898602b.r2.dev/images/castle.png)'
       }} />
 
-      {/* Flying bats */}
-      <div className="bg-bat" style={{
-        top: '15%',
-        animation: 'bat-fly-across-1 28s linear infinite'
-      }}>
-        <svg viewBox="0 0 100 50" fill="rgba(40, 20, 20, 0.9)">
-          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
-        </svg>
-      </div>
-      <div className="bg-bat" style={{
-        top: '45%',
-        animation: 'bat-fly-across-2 32s linear infinite 6s'
-      }}>
-        <svg viewBox="0 0 100 50" fill="rgba(35, 15, 20, 0.85)">
-          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
-        </svg>
-      </div>
-      <div className="bg-bat" style={{
-        top: '65%',
-        animation: 'bat-fly-across-3 30s linear infinite 12s'
-      }}>
-        <svg viewBox="0 0 100 50" fill="rgba(45, 25, 25, 0.9)">
-          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
-        </svg>
-      </div>
-      <div className="bg-bat" style={{
-        top: '30%',
-        animation: 'bat-fly-across-4 35s linear infinite 18s'
-      }}>
-        <svg viewBox="0 0 100 50" fill="rgba(40, 18, 22, 0.88)">
-          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
-        </svg>
-      </div>
-      <div className="bg-bat" style={{
-        top: '55%',
-        animation: 'bat-fly-across-1 26s linear infinite 24s'
-      }}>
-        <svg viewBox="0 0 100 50" fill="rgba(38, 22, 18, 0.87)">
-          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
-        </svg>
-      </div>
-      <div className="bg-bat" style={{
-        top: '80%',
-        animation: 'bat-fly-across-3 29s linear infinite 30s'
-      }}>
-        <svg viewBox="0 0 100 50" fill="rgba(42, 20, 24, 0.9)">
-          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
-        </svg>
-      </div>
-
       {/* Hero - Organic flowing design */}
       <section className="relative z-10 bg-dark-bg min-h-[65vh] flex items-center justify-center pt-20 pb-10 overflow-hidden">
         {/* Intensified gradient blobs */}
