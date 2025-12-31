@@ -49,8 +49,100 @@ export default async function HomePage({ locale }: HomePageProps) {
 
   return (
     <div className="bg-dark-bg min-h-screen">
+      {/* Vintage movie posters background collage */}
+      <div className="vintage-poster" style={{
+        width: '220px',
+        height: '320px',
+        top: '8%',
+        left: '5%',
+        transform: 'rotate(-8deg)',
+        backgroundImage: 'url(https://pub-cf1d1f8a481e4af89879163f7898602b.r2.dev/images/monsters.png)'
+      }} />
+      <div className="vintage-poster" style={{
+        width: '200px',
+        height: '300px',
+        top: '65%',
+        left: '8%',
+        transform: 'rotate(-12deg)',
+        backgroundImage: 'url(https://pub-cf1d1f8a481e4af89879163f7898602b.r2.dev/images/witch.png)'
+      }} />
+      <div className="vintage-poster" style={{
+        width: '190px',
+        height: '290px',
+        top: '22%',
+        right: '12%',
+        transform: 'rotate(7deg)',
+        backgroundImage: 'url(https://pub-cf1d1f8a481e4af89879163f7898602b.r2.dev/images/church.png)'
+      }} />
+      <div className="vintage-poster" style={{
+        width: '210px',
+        height: '310px',
+        bottom: '12%',
+        right: '18%',
+        transform: 'rotate(-10deg)',
+        backgroundImage: 'url(https://pub-cf1d1f8a481e4af89879163f7898602b.r2.dev/images/lagoon.png)'
+      }} />
+      <div className="vintage-poster" style={{
+        width: '195px',
+        height: '295px',
+        bottom: '5%',
+        left: '40%',
+        transform: 'rotate(5deg)',
+        backgroundImage: 'url(https://pub-cf1d1f8a481e4af89879163f7898602b.r2.dev/images/castle.png)'
+      }} />
+
+      {/* Flying bats */}
+      <div className="bg-bat" style={{
+        top: '15%',
+        animation: 'bat-fly-across-1 28s linear infinite'
+      }}>
+        <svg viewBox="0 0 100 50" fill="rgba(40, 20, 20, 0.9)">
+          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
+        </svg>
+      </div>
+      <div className="bg-bat" style={{
+        top: '45%',
+        animation: 'bat-fly-across-2 32s linear infinite 6s'
+      }}>
+        <svg viewBox="0 0 100 50" fill="rgba(35, 15, 20, 0.85)">
+          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
+        </svg>
+      </div>
+      <div className="bg-bat" style={{
+        top: '65%',
+        animation: 'bat-fly-across-3 30s linear infinite 12s'
+      }}>
+        <svg viewBox="0 0 100 50" fill="rgba(45, 25, 25, 0.9)">
+          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
+        </svg>
+      </div>
+      <div className="bg-bat" style={{
+        top: '30%',
+        animation: 'bat-fly-across-4 35s linear infinite 18s'
+      }}>
+        <svg viewBox="0 0 100 50" fill="rgba(40, 18, 22, 0.88)">
+          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
+        </svg>
+      </div>
+      <div className="bg-bat" style={{
+        top: '55%',
+        animation: 'bat-fly-across-1 26s linear infinite 24s'
+      }}>
+        <svg viewBox="0 0 100 50" fill="rgba(38, 22, 18, 0.87)">
+          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
+        </svg>
+      </div>
+      <div className="bg-bat" style={{
+        top: '80%',
+        animation: 'bat-fly-across-3 29s linear infinite 30s'
+      }}>
+        <svg viewBox="0 0 100 50" fill="rgba(42, 20, 24, 0.9)">
+          <path d="M50,25 Q45,15 35,12 Q30,10 25,15 Q20,20 15,18 Q10,16 8,20 Q10,25 15,28 Q20,30 25,28 Q30,26 35,30 Q40,35 45,32 Q48,30 50,35 Q52,30 55,32 Q60,35 65,30 Q70,26 75,28 Q80,30 85,28 Q90,25 92,20 Q90,16 85,18 Q80,20 75,15 Q70,10 65,12 Q55,15 50,25 Z"/>
+        </svg>
+      </div>
+
       {/* Hero - Organic flowing design */}
-      <section className="relative min-h-[65vh] flex items-center justify-center pt-20 pb-10 overflow-hidden">
+      <section className="relative z-10 bg-dark-bg min-h-[65vh] flex items-center justify-center pt-20 pb-10 overflow-hidden">
         {/* Intensified gradient blobs */}
         <div className="absolute top-0 -left-1/4 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-gothic-purple/50 via-accent-purple/30 to-transparent blur-3xl" />
         <div className="absolute bottom-0 -right-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-tl from-accent-red/40 via-gothic-crimson/20 to-transparent blur-3xl" />
@@ -151,7 +243,7 @@ export default async function HomePage({ locale }: HomePageProps) {
 
       {/* Categories - Flowing carousel */}
       {categories.length > 0 && (
-        <section className="py-20 relative px-4">
+        <section className="py-20 relative z-10 px-4">
           <div className="container mx-auto px-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-light text-text-primary neo-gothic-title text-center drop-shadow-[0_0_20px_rgba(220,38,38,0.2)] oozing-divider">
               {t('categories')}
@@ -197,7 +289,7 @@ export default async function HomePage({ locale }: HomePageProps) {
       )}
 
       {/* Articles - Staggered flowing layout */}
-      <section className="py-20 relative">
+      <section className="py-20 relative z-10">
         <div className="container mx-auto px-4 relative z-10">
           <div className="mb-16 max-w-4xl mx-auto">
             <h2 className="text-5xl md:text-6xl font-light text-text-primary neo-gothic-title mb-6 text-center drop-shadow-[0_0_25px_rgba(220,38,38,0.25)] oozing-divider">
@@ -263,7 +355,7 @@ export default async function HomePage({ locale }: HomePageProps) {
 
       {/* Recent - Flowing grid */}
       {recentArticles.length > 0 && (
-        <section className="py-20 relative">
+        <section className="py-20 relative z-10">
           <div className="container mx-auto px-4 relative z-10">
             <div className="mb-16 max-w-4xl mx-auto">
               <h2 className="text-5xl md:text-6xl font-light text-text-primary neo-gothic-title text-center drop-shadow-[0_0_25px_rgba(220,38,38,0.25)] oozing-divider">
