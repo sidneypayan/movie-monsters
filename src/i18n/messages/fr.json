@@ -69,5 +69,9 @@
     "by": "par",
     "shareArticle": "Partager cet article",
     "similarArticles": "Articles similaires"
+  },
+  "category": {
+    "articleCount": "# article(s)",
+    "noArticles": "Aucun article dans cette catégorie pour le moment."
   }
 }

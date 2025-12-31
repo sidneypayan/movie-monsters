@@ -69,5 +69,9 @@
     "by": "by",
     "shareArticle": "Share this article",
     "similarArticles": "Similar articles"
+  },
+  "category": {
+    "articleCount": "# article(s)",
+    "noArticles": "No articles in this category yet."
   }
 }

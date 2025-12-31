@@ -675,9 +675,13 @@ async function seed() {
   }
   console.log(`🗑️  Deleted ${existingArticles.length} existing articles`)
 
-  // Get or create a default category
+  // Find the "Universal Films" category (all these articles are Universal classics)
   const { docs: categories } = await payload.find({
     collection: 'categories',
+    where: {
+      slug: { equals: 'films-universal' },
+    },
+    locale: 'fr',
     limit: 1,
   })
 
@@ -686,17 +690,32 @@ async function seed() {
     categoryId = categories[0].id
     console.log(`📁 Using existing category: ${categories[0].name}`)
   } else {
+    // Create Universal Films category if it doesn't exist
     const newCategory = await payload.create({
       collection: 'categories',
       data: {
-        name: 'Classic Horror',
-        slug: 'classic-horror',
+        name: 'Films Universal',
+        slug: 'films-universal',
+        description: 'Articles sur les films Universal',
         order: 1,
+      },
+      locale: 'fr',
+    })
+
+    // Add English translation
+    await payload.update({
+      collection: 'categories',
+      id: newCategory.id,
+      data: {
+        name: 'Universal Films',
+        slug: 'universal-films',
+        description: 'Articles about Universal films',
       },
       locale: 'en',
     })
+
     categoryId = newCategory.id
-    console.log('📁 Created default category: Classic Horror')
+    console.log('📁 Created category: Universal Films / Films Universal')
   }
 
   // Get first user
@@ -767,7 +786,7 @@ async function seed() {
         locale: 'en',
       })
 
-      // Update with French version
+      // Update with French version (include category and author to prevent validation errors)
       await payload.update({
         collection: 'articles',
         id: created.id,
@@ -776,6 +795,8 @@ async function seed() {
           slug: article.slug,
           excerpt: article.excerpt.fr,
           content: article.content.fr as any,
+          category: categoryId as any,
+          author: authorId as any,
         },
         locale: 'fr',
       })
