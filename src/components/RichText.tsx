@@ -6,6 +6,33 @@ import Image from 'next/image'
 const jsxConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
   ...defaultConverters,
   blocks: {
+    image: ({ node }: { node: any }) => {
+      const { image, caption, width } = node.fields as any
+      const imageData = typeof image === 'object' ? image : null
+      if (!imageData) return null
+
+      const widthClasses = {
+        full: 'w-full',
+        large: 'w-4/5 mx-auto',
+        medium: 'w-3/5 mx-auto',
+        small: 'w-2/5 mx-auto',
+      }
+
+      return (
+        <div className={`my-8 ${widthClasses[width as keyof typeof widthClasses] || widthClasses.full}`}>
+          <Image
+            src={imageData.url}
+            alt={imageData.alt || caption || ''}
+            width={imageData.width || 800}
+            height={imageData.height || 600}
+            className="w-full h-auto rounded"
+          />
+          {caption && (
+            <p className="text-sm text-gray-600 text-center mt-2">{caption}</p>
+          )}
+        </div>
+      )
+    },
     'image-gallery': ({ node }: { node: any }) => {
       const { images, columns } = node.fields as any
       return (

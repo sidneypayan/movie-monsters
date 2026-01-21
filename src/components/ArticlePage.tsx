@@ -62,29 +62,8 @@ export default async function ArticlePage({ slug, locale }: ArticlePageProps) {
 
   return (
     <article className="bg-dark-bg min-h-screen">
-      {/* Organic gradient blobs */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-gothic-purple/20 to-transparent blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[800px] h-[800px] rounded-full bg-gradient-to-tl from-gothic-crimson/15 to-transparent blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-accent-purple/5 blur-2xl" />
-      </div>
-
       {/* Article Header */}
       <header className="relative pt-32 pb-20">
-        {featuredImage && featuredImage.url && (
-          <>
-            <div className="absolute inset-0 z-0">
-              <Image
-                src={featuredImage.url}
-                alt={featuredImage.alt || article.title || ''}
-                fill
-                className="object-cover opacity-60"
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-dark-bg/30 via-dark-bg/60 to-dark-bg z-0" />
-          </>
-        )}
-
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">
           {category && (
             <Link

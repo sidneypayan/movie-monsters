@@ -2,10 +2,61 @@ import type { CollectionConfig } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import {
   BlocksFeature,
+  BoldFeature,
+  ItalicFeature,
+  UnderlineFeature,
+  StrikethroughFeature,
+  SubscriptFeature,
+  SuperscriptFeature,
+  InlineCodeFeature,
+  ParagraphFeature,
   HeadingFeature,
+  AlignFeature,
+  IndentFeature,
+  UnorderedListFeature,
+  OrderedListFeature,
+  ChecklistFeature,
   LinkFeature,
+  RelationshipFeature,
+  BlockquoteFeature,
   UploadFeature,
+  HorizontalRuleFeature,
+  FixedToolbarFeature,
+  InlineToolbarFeature,
 } from '@payloadcms/richtext-lexical'
+
+// Custom block for single image
+const ImageBlock = {
+  slug: 'image',
+  interfaceName: 'ImageBlock',
+  fields: [
+    {
+      name: 'image',
+      type: 'upload' as const,
+      relationTo: 'media' as const,
+      required: true,
+      label: 'Image',
+    },
+    {
+      name: 'caption',
+      type: 'text' as const,
+      label: 'Caption',
+      localized: true,
+    },
+    {
+      name: 'width',
+      type: 'select' as const,
+      label: 'Width',
+      options: [
+        { label: 'Full Width', value: 'full' },
+        { label: 'Large (80%)', value: 'large' },
+        { label: 'Medium (60%)', value: 'medium' },
+        { label: 'Small (40%)', value: 'small' },
+      ],
+      defaultValue: 'full',
+    },
+  ],
+}
 
 // Custom block for image galleries
 const ImageGalleryBlock = {
@@ -132,14 +183,39 @@ export const Articles: CollectionConfig = {
               required: true,
               localized: true,
               editor: lexicalEditor({
-                features: ({ defaultFeatures }) => [
-                  ...defaultFeatures,
+                features: () => [
+                  // Text formatting
+                  ParagraphFeature(),
+                  BoldFeature(),
+                  ItalicFeature(),
+                  UnderlineFeature(),
+                  StrikethroughFeature(),
+                  SubscriptFeature(),
+                  SuperscriptFeature(),
+                  InlineCodeFeature(),
+
+                  // Headings
                   HeadingFeature({
                     enabledHeadingSizes: ['h2', 'h3', 'h4'],
                   }),
+
+                  // Lists
+                  UnorderedListFeature(),
+                  OrderedListFeature(),
+                  ChecklistFeature(),
+
+                  // Alignment and indentation
+                  AlignFeature(),
+                  IndentFeature(),
+
+                  // Links and relationships
                   LinkFeature({
                     enabledCollections: ['articles'],
                   }),
+                  RelationshipFeature(),
+
+                  // Blocks and media
+                  BlockquoteFeature(),
                   UploadFeature({
                     collections: {
                       media: {
@@ -153,9 +229,16 @@ export const Articles: CollectionConfig = {
                       },
                     },
                   }),
+                  HorizontalRuleFeature(),
+
+                  // Custom blocks
                   BlocksFeature({
-                    blocks: [ImageGalleryBlock, YouTubeBlock],
+                    blocks: [ImageBlock, ImageGalleryBlock, YouTubeBlock],
                   }),
+
+                  // Toolbars
+                  FixedToolbarFeature(),
+                  InlineToolbarFeature(),
                 ],
               }),
             },

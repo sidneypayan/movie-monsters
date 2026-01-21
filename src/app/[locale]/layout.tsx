@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { locales } from '@/i18n/request'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+import VintagePostersBackground from '@/components/VintagePostersBackground'
 import { Creepster } from 'next/font/google'
 import '@/app/globals.css'
 
@@ -38,6 +39,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={creepster.variable}>
       <body>
+        <VintagePostersBackground />
         <NextIntlClientProvider messages={messages}>
           <Navigation locale={locale as 'en' | 'fr'} />
           {children}
