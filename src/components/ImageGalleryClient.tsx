@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 import Lightbox from 'yet-another-react-lightbox'
 
 interface ImageData {
@@ -44,8 +43,6 @@ export default function ImageGalleryClient({ images, columns }: ImageGalleryClie
   // Prepare slides for yet-another-react-lightbox
   const slides = images.map((img) => ({
     src: img.url,
-    alt: img.alt || '',
-    title: img.caption,
   }))
 
   return (

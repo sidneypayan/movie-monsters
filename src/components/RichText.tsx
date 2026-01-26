@@ -1,6 +1,5 @@
 import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { JSXConvertersFunction, RichText as RichTextRenderer } from '@payloadcms/richtext-lexical/react'
-import Image from 'next/image'
 import ImageGalleryClient from './ImageGalleryClient'
 import SingleImageClient from './SingleImageClient'
 

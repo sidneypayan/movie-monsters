@@ -78,7 +78,7 @@ export default function SingleImageClient({
       <Lightbox
         open={lightboxOpen}
         close={() => setLightboxOpen(false)}
-        slides={[{ src: url, alt, title: caption }]}
+        slides={[{ src: url }]}
         styles={{
           container: { backgroundColor: 'rgba(0, 0, 0, 0.95)' },
         }}
