@@ -15,13 +15,13 @@ export const Media: CollectionConfig = {
       {
         name: 'thumbnail',
         width: 400,
-        height: 300,
+        height: 250,
         position: 'centre',
       },
       {
         name: 'card',
-        width: 768,
-        height: 512,
+        width: 800,
+        height: 500,
         position: 'centre',
       },
       {

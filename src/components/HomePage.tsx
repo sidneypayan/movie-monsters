@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import ArticleCard from '@/components/ArticleCard'
 import NewsletterSignup from '@/components/NewsletterSignup'
+import VisitorCounter from '@/components/VisitorCounter'
 import type { Article } from '@/payload-types'
 import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
@@ -14,20 +15,22 @@ export default async function HomePage({ locale }: HomePageProps) {
   const t = await getTranslations('home')
   const payload = await getPayload({ config })
 
+  // Get all published articles sorted by date
+  const { docs: allArticles } = await payload.find({
+    collection: 'articles',
+    where: {
+      status: { equals: 'published' },
+    },
+    locale,
+    limit: 12,
+    sort: '-publishedDate',
+  })
+
+  // Get featured articles (for the rest of the page)
   const { docs: featuredArticles } = await payload.find({
     collection: 'articles',
     where: {
       featured: { equals: true },
-      status: { equals: 'published' },
-    },
-    locale,
-    limit: 6,
-    sort: '-publishedDate',
-  })
-
-  const { docs: recentArticles } = await payload.find({
-    collection: 'articles',
-    where: {
       status: { equals: 'published' },
     },
     locale,
@@ -42,9 +45,12 @@ export default async function HomePage({ locale }: HomePageProps) {
     sort: 'order',
   })
 
-  const firstFeatured = featuredArticles[0]
-  const firstFeaturedImage = firstFeatured && typeof firstFeatured.featuredImage === 'object' && firstFeatured.featuredImage !== null
-    ? firstFeatured.featuredImage
+  // Hero shows the latest published article (most recent)
+  const latestArticle = allArticles[0]
+  // Recent articles (including the one in hero)
+  const recentArticles = allArticles.slice(0, 6)
+  const latestArticleImage = latestArticle && typeof latestArticle.featuredImage === 'object' && latestArticle.featuredImage !== null
+    ? latestArticle.featuredImage
     : null
 
   return (
@@ -113,31 +119,35 @@ export default async function HomePage({ locale }: HomePageProps) {
               })}
             </h1>
 
-            <p className="text-lg md:text-xl text-text-secondary font-light max-w-2xl mx-auto mb-8 drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+            <p className="text-lg md:text-xl text-text-secondary font-light max-w-2xl mx-auto mb-4 drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
               {t('subtitle')}
             </p>
 
-            {firstFeatured && firstFeaturedImage?.url && (
+            <div className="flex justify-center mb-8">
+              <VisitorCounter locale={locale} />
+            </div>
+
+            {latestArticle && latestArticleImage?.url && (
               <div className="relative max-w-2xl mx-auto">
-                <a href={`/${locale}/articles/${firstFeatured.slug}`} className="group block">
+                <a href={`/${locale}/articles/${latestArticle.slug}`} className="group block">
                   <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-accent-red/20">
                     <Image
-                      src={firstFeaturedImage.url}
-                      alt={firstFeaturedImage.alt || firstFeatured.title || ''}
+                      src={latestArticleImage.url}
+                      alt={latestArticleImage.alt || latestArticle.title || ''}
                       fill
                       className="object-cover transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-accent-red/10 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                       <span className="inline-block px-3 py-1 rounded-full bg-accent-red/20 backdrop-blur-sm text-accent-red border border-accent-red/30 text-xs uppercase tracking-wider mb-2">
-                        {t('featured')}
+                        {t('latest')}
                       </span>
                       <h2 className="text-xl md:text-2xl font-light text-white mb-2 uppercase tracking-wide">
-                        {firstFeatured.title}
+                        {latestArticle.title}
                       </h2>
-                      {firstFeatured.excerpt && (
+                      {latestArticle.excerpt && (
                         <p className="text-xs md:text-sm text-text-secondary font-light line-clamp-2">
-                          {firstFeatured.excerpt}
+                          {latestArticle.excerpt}
                         </p>
                       )}
                     </div>

@@ -1,6 +1,8 @@
 import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { JSXConvertersFunction, RichText as RichTextRenderer } from '@payloadcms/richtext-lexical/react'
 import Image from 'next/image'
+import ImageGalleryClient from './ImageGalleryClient'
+import SingleImageClient from './SingleImageClient'
 
 // Custom renderers for blocks
 const jsxConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
@@ -19,51 +21,47 @@ const jsxConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
       }
 
       return (
-        <div className={`my-8 ${widthClasses[width as keyof typeof widthClasses] || widthClasses.full}`}>
-          <Image
-            src={imageData.url}
-            alt={imageData.alt || caption || ''}
-            width={imageData.width || 800}
-            height={imageData.height || 600}
-            className="w-full h-auto rounded"
-          />
-          {caption && (
-            <p className="text-sm text-gray-600 text-center mt-2">{caption}</p>
-          )}
-        </div>
+        <SingleImageClient
+          url={imageData.url}
+          alt={imageData.alt || caption || ''}
+          caption={caption}
+          width={imageData.width || 800}
+          height={imageData.height || 600}
+          widthClass={widthClasses[width as keyof typeof widthClasses] || widthClasses.full}
+        />
       )
     },
     'image-gallery': ({ node }: { node: any }) => {
       const { images, columns } = node.fields as any
-      return (
-        <div className={`grid grid-cols-${columns} gap-4 my-8`}>
-          {images?.map((img: any, index: number) => {
-            const image = typeof img.image === 'object' ? img.image : null
-            if (!image) return null
 
-            return (
-              <div key={index} className="space-y-2">
-                <Image
-                  src={image.url}
-                  alt={image.alt || img.caption || ''}
-                  width={image.width || 800}
-                  height={image.height || 600}
-                  className="w-full h-auto rounded"
-                />
-                {img.caption && (
-                  <p className="text-sm text-gray-600 text-center">{img.caption}</p>
-                )}
-              </div>
-            )
-          })}
-        </div>
+      // Prepare images for the gallery
+      const galleryImages = images?.map((img: any) => {
+        const image = typeof img.image === 'object' ? img.image : null
+        if (!image) return null
+
+        return {
+          url: image.url,
+          alt: image.alt || img.caption || '',
+          caption: img.caption,
+          width: image.width || 800,
+          height: image.height || 600,
+        }
+      }).filter(Boolean) || []
+
+      if (galleryImages.length === 0) return null
+
+      return (
+        <ImageGalleryClient
+          images={galleryImages}
+          columns={columns || '3'}
+        />
       )
     },
     youtube: ({ node }: { node: any }) => {
       const { videoId, caption } = node.fields as any
       return (
-        <div className="my-8">
-          <div className="aspect-video">
+        <div className="my-10">
+          <div className="relative aspect-video overflow-hidden rounded-lg border border-accent-red/20 hover:border-accent-red/40 transition-all duration-300">
             <iframe
               width="100%"
               height="100%"
@@ -71,11 +69,11 @@ const jsxConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="rounded"
+              className="absolute inset-0 w-full h-full"
             />
           </div>
           {caption && (
-            <p className="text-sm text-gray-600 text-center mt-2">{caption}</p>
+            <p className="text-sm text-text-secondary text-center mt-3 font-light italic">{caption}</p>
           )}
         </div>
       )

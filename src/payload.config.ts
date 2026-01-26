@@ -15,6 +15,7 @@ import { Categories } from './collections/Categories'
 import { Books } from './collections/Books'
 import { Newsletter } from './collections/Newsletter'
 import { Biography } from './globals/Biography'
+import { SiteStats } from './globals/SiteStats'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +28,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Articles, Categories, Books, Newsletter],
-  globals: [Biography],
+  globals: [Biography, SiteStats],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

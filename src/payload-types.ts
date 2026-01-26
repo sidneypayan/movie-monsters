@@ -97,9 +97,11 @@ export interface Config {
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('fr' | 'en') | ('fr' | 'en')[];
   globals: {
     biography: Biography;
+    'site-stats': SiteStat;
   };
   globalsSelect: {
     biography: BiographySelect<false> | BiographySelect<true>;
+    'site-stats': SiteStatsSelect<false> | SiteStatsSelect<true>;
   };
   locale: 'fr' | 'en';
   user: User & {
@@ -620,6 +622,23 @@ export interface Biography {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-stats".
+ */
+export interface SiteStat {
+  id: number;
+  /**
+   * Total number of visits to the homepage
+   */
+  totalVisits: number;
+  /**
+   * Last visit timestamp
+   */
+  lastVisit?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "biography_select".
  */
 export interface BiographySelect<T extends boolean = true> {
@@ -633,6 +652,17 @@ export interface BiographySelect<T extends boolean = true> {
         url?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-stats_select".
+ */
+export interface SiteStatsSelect<T extends boolean = true> {
+  totalVisits?: T;
+  lastVisit?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
