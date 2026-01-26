@@ -2,6 +2,9 @@ import ArticlePage from '@/components/ArticlePage'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 
+// Revalidate every 60 seconds - ISR for dynamic content
+export const revalidate = 60
+
 interface ArticlePageRouteProps {
   params: Promise<{
     slug: string
