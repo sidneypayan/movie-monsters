@@ -40,7 +40,13 @@
       "Bash(git merge:*)",
       "Bash(npx tsc:*)",
       "Bash(git fetch:*)",
-      "Bash(git rev-list:*)"
+      "Bash(git rev-list:*)",
+      "Bash(git branch:*)",
+      "Bash(gh repo:*)",
+      "Bash(pnpm add:*)",
+      "Bash(NODE_OPTIONS=--no-deprecation npx tsx:*)",
+      "Bash(NODE_OPTIONS=--no-deprecation npx dotenv:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }
