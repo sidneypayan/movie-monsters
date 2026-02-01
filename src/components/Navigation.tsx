@@ -3,12 +3,13 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 export default function Navigation({ locale }: { locale: 'en' | 'fr' }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const t = useTranslations('navigation')
   const pathname = usePathname()
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,9 +19,20 @@ export default function Navigation({ locale }: { locale: 'en' | 'fr' }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Get current path without locale prefix
-  const getCurrentPath = () => {
-    return pathname.replace(/^\/(en|fr)/, '') || '/'
+  // Handle language switch with proper slug translation
+  const handleLanguageSwitch = async (targetLocale: 'en' | 'fr') => {
+    try {
+      const response = await fetch(
+        `/api/translate-url?path=${encodeURIComponent(pathname)}&locale=${targetLocale}`
+      )
+      const data = await response.json()
+      router.push(data.url)
+    } catch (error) {
+      console.error('Error switching language:', error)
+      // Fallback to simple locale change
+      const pathWithoutLocale = pathname.replace(/^\/(en|fr)/, '')
+      router.push(`/${targetLocale}${pathWithoutLocale || ''}`)
+    }
   }
 
   return (
@@ -60,26 +72,26 @@ export default function Navigation({ locale }: { locale: 'en' | 'fr' }) {
 
             {/* Language Switcher */}
             <div className="flex gap-2 ml-4 border-l border-dark-border pl-4">
-              <Link
-                href={`/en${getCurrentPath()}`}
-                className={`px-3 py-1 text-xs uppercase tracking-wider transition-all font-light ${
+              <button
+                onClick={() => handleLanguageSwitch('en')}
+                className={`px-3 py-1 text-xs uppercase tracking-wider transition-all font-light cursor-pointer ${
                   locale === 'en'
                     ? 'text-text-primary border-b border-accent-red'
                     : 'text-text-muted hover:text-text-secondary'
                 }`}
               >
                 EN
-              </Link>
-              <Link
-                href={`/fr${getCurrentPath()}`}
-                className={`px-3 py-1 text-xs uppercase tracking-wider transition-all font-light ${
+              </button>
+              <button
+                onClick={() => handleLanguageSwitch('fr')}
+                className={`px-3 py-1 text-xs uppercase tracking-wider transition-all font-light cursor-pointer ${
                   locale === 'fr'
                     ? 'text-text-primary border-b border-accent-red'
                     : 'text-text-muted hover:text-text-secondary'
                 }`}
               >
                 FR
-              </Link>
+              </button>
             </div>
           </div>
         </div>

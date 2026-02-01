@@ -47,7 +47,8 @@
       "Bash(NODE_OPTIONS=--no-deprecation npx tsx:*)",
       "Bash(NODE_OPTIONS=--no-deprecation npx dotenv:*)",
       "Bash(npm run build:*)",
-      "Bash(pnpm payload migrate:status:*)"
+      "Bash(pnpm payload migrate:status:*)",
+      "Bash(git stash:*)"
     ]
   }
 }

@@ -197,28 +197,15 @@ export const Articles: CollectionConfig = {
               localized: true,
             },
             {
-              type: 'row',
-              fields: [
-                {
-                  name: 'category',
-                  type: 'relationship',
-                  relationTo: 'categories',
-                  required: true,
-                  hasMany: false,
-                  admin: {
-                    width: '50%',
-                  },
-                },
-                {
-                  name: 'featuredImage',
-                  type: 'upload',
-                  relationTo: 'media',
-                  required: false,
-                  admin: {
-                    width: '50%',
-                  },
-                },
-              ],
+              name: 'slug',
+              type: 'text',
+              required: true,
+              localized: true,
+              unique: true,
+              index: true,
+              admin: {
+                description: 'Auto-generated from title. You can edit if needed.',
+              },
             },
             {
               name: 'excerpt',
@@ -230,49 +217,64 @@ export const Articles: CollectionConfig = {
               },
             },
             {
-              name: 'slug',
-              type: 'text',
-              required: true,
-              localized: true,
-              unique: true,
-              index: true,
+              type: 'collapsible',
+              label: 'Media & Metadata',
               admin: {
-                position: 'sidebar',
-                description: 'Auto-generated from title. You can edit if needed.',
+                initCollapsed: false,
               },
-            },
-            {
-              name: 'author',
-              type: 'relationship',
-              relationTo: 'users',
-              required: true,
-              admin: {
-                position: 'sidebar',
-              },
-            },
-            {
-              name: 'status',
-              type: 'select',
-              options: [
-                { label: 'Draft', value: 'draft' },
-                { label: 'Published', value: 'published' },
-              ],
-              defaultValue: 'draft',
-              required: true,
-              admin: {
-                position: 'sidebar',
-              },
-            },
-            {
-              name: 'publishedDate',
-              type: 'date',
-              required: true,
-              admin: {
-                position: 'sidebar',
-                date: {
-                  pickerAppearance: 'dayOnly',
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'category',
+                      type: 'relationship',
+                      relationTo: 'categories',
+                      required: true,
+                      hasMany: false,
+                      admin: {
+                        width: '33%',
+                      },
+                    },
+                    {
+                      name: 'status',
+                      type: 'select',
+                      options: [
+                        { label: 'Draft', value: 'draft' },
+                        { label: 'Published', value: 'published' },
+                      ],
+                      defaultValue: 'draft',
+                      required: true,
+                      admin: {
+                        width: '33%',
+                      },
+                    },
+                    {
+                      name: 'publishedDate',
+                      type: 'date',
+                      required: true,
+                      admin: {
+                        width: '34%',
+                        date: {
+                          pickerAppearance: 'dayOnly',
+                        },
+                      },
+                    },
+                  ],
                 },
-              },
+                {
+                  name: 'author',
+                  type: 'relationship',
+                  relationTo: 'users',
+                  required: true,
+                },
+                {
+                  name: 'featuredImage',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: false,
+                },
+              ],
             },
             {
               name: 'content',

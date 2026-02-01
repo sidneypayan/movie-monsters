@@ -214,14 +214,14 @@ export interface Article {
    * Auto-generated from title. You can edit if needed.
    */
   slug: string;
+  /**
+   * Auto-generated from first sentence. You can override if needed.
+   */
+  excerpt?: string | null;
   category: number | Category;
-  author: number | User;
   status: 'draft' | 'published';
   publishedDate: string;
-  /**
-   * Short description for article cards and SEO
-   */
-  excerpt: string;
+  author: number | User;
   featuredImage?: (number | null) | Media;
   content: {
     root: {
@@ -486,11 +486,11 @@ export interface MediaSelect<T extends boolean = true> {
 export interface ArticlesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  excerpt?: T;
   category?: T;
-  author?: T;
   status?: T;
   publishedDate?: T;
-  excerpt?: T;
+  author?: T;
   featuredImage?: T;
   content?: T;
   metaTitle?: T;
