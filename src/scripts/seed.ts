@@ -214,7 +214,6 @@ async function seed() {
         author: authorId,
         status: 'published',
         publishedDate: new Date().toISOString(),
-        featured: true,
         content: {
           root: {
             type: 'root',

@@ -219,16 +219,6 @@ export const Articles: CollectionConfig = {
               },
             },
             {
-              name: 'featured',
-              type: 'checkbox',
-              label: 'Featured Article',
-              defaultValue: false,
-              admin: {
-                position: 'sidebar',
-                description: 'Show on homepage',
-              },
-            },
-            {
               name: 'excerpt',
               type: 'textarea',
               required: true,

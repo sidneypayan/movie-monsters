@@ -210,7 +210,14 @@ export interface Media {
 export interface Article {
   id: number;
   title: string;
+  /**
+   * Auto-generated from title. You can edit if needed.
+   */
   slug: string;
+  category: number | Category;
+  author: number | User;
+  status: 'draft' | 'published';
+  publishedDate: string;
   /**
    * Short description for article cards and SEO
    */
@@ -231,14 +238,6 @@ export interface Article {
     };
     [k: string]: unknown;
   };
-  category: number | Category;
-  author: number | User;
-  status: 'draft' | 'published';
-  publishedDate: string;
-  /**
-   * Show on homepage
-   */
-  featured?: boolean | null;
   /**
    * Override the page title for SEO (optional)
    */
@@ -487,14 +486,13 @@ export interface MediaSelect<T extends boolean = true> {
 export interface ArticlesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  excerpt?: T;
-  featuredImage?: T;
-  content?: T;
   category?: T;
   author?: T;
   status?: T;
   publishedDate?: T;
-  featured?: T;
+  excerpt?: T;
+  featuredImage?: T;
+  content?: T;
   metaTitle?: T;
   metaDescription?: T;
   metaImage?: T;

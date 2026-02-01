@@ -26,18 +26,6 @@ export default async function HomePage({ locale }: HomePageProps) {
     sort: '-publishedDate',
   })
 
-  // Get featured articles (for the rest of the page)
-  const { docs: featuredArticles } = await payload.find({
-    collection: 'articles',
-    where: {
-      featured: { equals: true },
-      status: { equals: 'published' },
-    },
-    locale,
-    limit: 6,
-    sort: '-publishedDate',
-  })
-
   const { docs: categories } = await payload.find({
     collection: 'categories',
     locale,
@@ -216,7 +204,7 @@ export default async function HomePage({ locale }: HomePageProps) {
           </div>
 
           <div className="max-w-5xl mx-auto space-y-6">
-            {featuredArticles.slice(1).map((article, index) => {
+            {allArticles.slice(1, 7).map((article, index) => {
               const featuredImage = typeof article.featuredImage === 'object' && article.featuredImage !== null
                 ? article.featuredImage
                 : null
