@@ -39,66 +39,60 @@ export default async function AboutPage({ locale }: AboutPageProps) {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header Section */}
-        <div className="text-center mb-20">
-          <h1 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title oozing-divider">
-            {t('title')}
-          </h1>
-          <p className="text-xl text-text-secondary font-light max-w-2xl mx-auto">
-            {t('subtitle')}
-          </p>
-        </div>
+        {/* Hero Image Section */}
+        {authorPhoto && authorPhoto.url && (
+          <div className="max-w-6xl mx-auto mb-16">
+            <div className="relative aspect-video rounded-3xl overflow-hidden border border-accent-purple/30 shadow-2xl bg-dark-bg">
+              <Image
+                src={authorPhoto.url}
+                alt={biography.authorName || 'Author'}
+                fill
+                className="object-contain transition-all duration-700"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+
+              {/* Title Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                <h1 className="text-5xl md:text-7xl font-light text-white neo-gothic-title mb-4 drop-shadow-[0_0_30px_rgba(0,0,0,0.9)]">
+                  {biography.authorName}
+                </h1>
+                <p className="text-xl md:text-2xl text-text-secondary font-light max-w-2xl drop-shadow-[0_0_20px_rgba(0,0,0,0.9)]">
+                  {t('subtitle')}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto space-y-12">
-          {/* Author Section */}
+          {/* Author Bio Section */}
           <div className="bg-dark-elevated/50 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-gothic-purple-light relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-gothic-purple/10 via-transparent to-gothic-crimson/10" />
 
-            <div className="grid md:grid-cols-3 gap-8 items-start relative z-10">
-              {/* Author Photo */}
-              {authorPhoto && authorPhoto.url && (
-                <div className="md:col-span-1">
-                  <div className="relative aspect-square rounded-3xl overflow-hidden border border-accent-purple/30">
-                    <Image
-                      src={authorPhoto.url}
-                      alt={biography.authorName || 'Author'}
-                      fill
-                      className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-gothic-purple/20 via-transparent to-gothic-crimson/20" />
-                  </div>
+            <div className="relative z-10">
+              <div className="prose prose-invert prose-lg max-w-none mb-8">
+                <RichText content={biography.bio} />
+              </div>
+
+              {/* Social Links */}
+              {biography.socialLinks && biography.socialLinks.length > 0 && (
+                <div className="flex flex-wrap gap-3 pt-6 border-t border-dark-border">
+                  {biography.socialLinks.map((link: any, index: number) => (
+                    <a
+                      key={index}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-dark-bg border border-accent-purple/30 text-text-primary rounded-full hover:border-accent-purple hover:bg-accent-purple/10 transition-all duration-300 text-sm uppercase tracking-wider font-light"
+                    >
+                      <span className="mr-2">{platformIcons[link.platform] || '→'}</span>
+                      <span>{link.platform}</span>
+                    </a>
+                  ))}
                 </div>
               )}
-
-              {/* Author Info */}
-              <div className="md:col-span-2">
-                <h2 className="text-3xl md:text-4xl font-light mb-6 text-text-primary uppercase tracking-wide">
-                  {biography.authorName}
-                </h2>
-
-                <div className="prose prose-invert max-w-none mb-6">
-                  <RichText content={biography.bio} />
-                </div>
-
-                {/* Social Links */}
-                {biography.socialLinks && biography.socialLinks.length > 0 && (
-                  <div className="flex flex-wrap gap-3 mt-6">
-                    {biography.socialLinks.map((link: any, index: number) => (
-                      <a
-                        key={index}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 bg-dark-bg border border-accent-purple/30 text-text-primary rounded-full hover:border-accent-purple hover:bg-accent-purple/10 transition-all duration-300 text-sm uppercase tracking-wider font-light"
-                      >
-                        <span className="mr-2">{platformIcons[link.platform] || '→'}</span>
-                        <span>{link.platform}</span>
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
             </div>
           </div>
 
