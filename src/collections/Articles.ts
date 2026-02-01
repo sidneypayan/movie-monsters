@@ -25,6 +25,18 @@ import {
   InlineToolbarFeature,
 } from '@payloadcms/richtext-lexical'
 
+// Generate URL-friendly slug from text
+const generateSlug = (text: string): string => {
+  return text
+    .toLowerCase()
+    .normalize('NFD') // Decompose accented characters
+    .replace(/[\u0300-\u036f]/g, '') // Remove accents
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+    .trim()
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+}
+
 // Custom block for single image
 const ImageBlock = {
   slug: 'image',
@@ -160,6 +172,60 @@ export const Articles: CollectionConfig = {
               index: true,
               admin: {
                 position: 'sidebar',
+                description: 'Auto-generated from title. You can edit if needed.',
+              },
+            },
+            {
+              name: 'category',
+              type: 'relationship',
+              relationTo: 'categories',
+              required: true,
+              hasMany: false,
+              admin: {
+                position: 'sidebar',
+              },
+            },
+            {
+              name: 'author',
+              type: 'relationship',
+              relationTo: 'users',
+              required: true,
+              admin: {
+                position: 'sidebar',
+              },
+            },
+            {
+              name: 'status',
+              type: 'select',
+              options: [
+                { label: 'Draft', value: 'draft' },
+                { label: 'Published', value: 'published' },
+              ],
+              defaultValue: 'draft',
+              required: true,
+              admin: {
+                position: 'sidebar',
+              },
+            },
+            {
+              name: 'publishedDate',
+              type: 'date',
+              required: true,
+              admin: {
+                position: 'sidebar',
+                date: {
+                  pickerAppearance: 'dayOnly',
+                },
+              },
+            },
+            {
+              name: 'featured',
+              type: 'checkbox',
+              label: 'Featured Article',
+              defaultValue: false,
+              admin: {
+                position: 'sidebar',
+                description: 'Show on homepage',
               },
             },
             {
@@ -245,61 +311,6 @@ export const Articles: CollectionConfig = {
           ],
         },
         {
-          label: 'Meta',
-          fields: [
-            {
-              name: 'category',
-              type: 'relationship',
-              relationTo: 'categories',
-              required: true,
-              hasMany: false,
-            },
-            {
-              name: 'author',
-              type: 'relationship',
-              relationTo: 'users',
-              required: true,
-              admin: {
-                position: 'sidebar',
-              },
-            },
-            {
-              name: 'status',
-              type: 'select',
-              options: [
-                { label: 'Draft', value: 'draft' },
-                { label: 'Published', value: 'published' },
-              ],
-              defaultValue: 'draft',
-              required: true,
-              admin: {
-                position: 'sidebar',
-              },
-            },
-            {
-              name: 'publishedDate',
-              type: 'date',
-              required: true,
-              admin: {
-                position: 'sidebar',
-                date: {
-                  pickerAppearance: 'dayOnly',
-                },
-              },
-            },
-            {
-              name: 'featured',
-              type: 'checkbox',
-              label: 'Featured Article',
-              defaultValue: false,
-              admin: {
-                position: 'sidebar',
-                description: 'Show on homepage',
-              },
-            },
-          ],
-        },
-        {
           label: 'SEO',
           fields: [
             {
@@ -340,6 +351,12 @@ export const Articles: CollectionConfig = {
         if (!data.author && req.user) {
           data.author = req.user.id
         }
+
+        // Auto-generate slug from title if not provided
+        if (data.title && !data.slug) {
+          data.slug = generateSlug(data.title)
+        }
+
         return data
       },
     ],
