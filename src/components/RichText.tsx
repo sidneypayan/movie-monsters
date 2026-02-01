@@ -13,10 +13,10 @@ const jsxConverters: JSXConvertersFunction = ({ defaultConverters }) => ({
       if (!imageData) return null
 
       const widthClasses = {
-        full: 'w-full',
-        large: 'w-4/5 mx-auto',
-        medium: 'w-3/5 mx-auto',
-        small: 'w-2/5 mx-auto',
+        full: 'w-4/5 mx-auto',
+        large: 'w-3/5 mx-auto',
+        medium: 'w-2/5 mx-auto',
+        small: 'w-1/3 mx-auto',
       }
 
       return (
