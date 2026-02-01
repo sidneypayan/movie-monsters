@@ -197,6 +197,39 @@ export const Articles: CollectionConfig = {
               localized: true,
             },
             {
+              type: 'row',
+              fields: [
+                {
+                  name: 'category',
+                  type: 'relationship',
+                  relationTo: 'categories',
+                  required: true,
+                  hasMany: false,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+                {
+                  name: 'featuredImage',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: false,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+              ],
+            },
+            {
+              name: 'excerpt',
+              type: 'textarea',
+              required: false,
+              localized: true,
+              admin: {
+                description: 'Auto-generated from first sentence. You can override if needed.',
+              },
+            },
+            {
               name: 'slug',
               type: 'text',
               required: true,
@@ -206,16 +239,6 @@ export const Articles: CollectionConfig = {
               admin: {
                 position: 'sidebar',
                 description: 'Auto-generated from title. You can edit if needed.',
-              },
-            },
-            {
-              name: 'category',
-              type: 'relationship',
-              relationTo: 'categories',
-              required: true,
-              hasMany: false,
-              admin: {
-                position: 'sidebar',
               },
             },
             {
@@ -250,21 +273,6 @@ export const Articles: CollectionConfig = {
                   pickerAppearance: 'dayOnly',
                 },
               },
-            },
-            {
-              name: 'excerpt',
-              type: 'textarea',
-              required: false,
-              localized: true,
-              admin: {
-                description: 'Auto-generated from first sentence. You can override if needed.',
-              },
-            },
-            {
-              name: 'featuredImage',
-              type: 'upload',
-              relationTo: 'media',
-              required: false,
             },
             {
               name: 'content',
