@@ -1,4 +1,4 @@
-import * as migration_20260126_191327_add_site_stats from './20260126_191327_add_site_stats';
+import * as migration_20260126_191327_add_site_stats from './20260126_191500_add_site_stats_only';
 
 export const migrations = [
   {
