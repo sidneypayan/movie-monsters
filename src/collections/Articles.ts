@@ -379,10 +379,30 @@ export const Articles: CollectionConfig = {
   timestamps: true,
   hooks: {
     beforeChange: [
-      ({ data, req }) => {
-        // Auto-set author to current user if not set
-        if (!data.author && req.user) {
-          data.author = req.user.id
+      async ({ data, req }) => {
+        // Auto-set author to Eric by default
+        if (!data.author) {
+          try {
+            const { docs: users } = await req.payload.find({
+              collection: 'users',
+              where: {
+                name: { equals: 'Eric' },
+              },
+              limit: 1,
+            })
+
+            if (users.length > 0) {
+              data.author = users[0].id
+            } else if (req.user) {
+              // Fallback to current user if Eric not found
+              data.author = req.user.id
+            }
+          } catch (error) {
+            // Fallback to current user on error
+            if (req.user) {
+              data.author = req.user.id
+            }
+          }
         }
 
         // Auto-generate slug from title if not provided
