@@ -86,7 +86,7 @@ interface RichTextProps {
 
 export default function RichText({ content }: RichTextProps) {
   return (
-    <div className="prose">
+    <div className="prose prose-img:max-w-4xl prose-img:mx-auto prose-img:w-4/5">
       <RichTextRenderer
         data={content}
         converters={jsxConverters}
