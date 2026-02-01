@@ -22,12 +22,12 @@ export default function ArticleCard({ article, locale = 'fr' }: ArticleCardProps
       className="group block bg-dark-elevated border border-dark-border hover:border-accent-red transition-all duration-300 overflow-hidden"
     >
       {featuredImage && featuredImage.url && (
-        <div className="aspect-[16/10] relative overflow-hidden bg-dark-surface">
+        <div className="aspect-[16/10] relative overflow-hidden bg-dark-bg">
           <Image
             src={featuredImage.url}
             alt={featuredImage.alt || article.title || ''}
             fill
-            className="object-cover opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
+            className="object-contain opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
           />
         </div>
       )}

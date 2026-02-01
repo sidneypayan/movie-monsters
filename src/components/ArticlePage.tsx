@@ -101,15 +101,15 @@ export default async function ArticlePage({ slug, locale }: ArticlePageProps) {
       {/* Featured Image */}
       {featuredImage && featuredImage.url && (
         <div className="container mx-auto px-4 -mt-10 relative z-20 max-w-5xl mb-16">
-          <div className="aspect-video relative rounded-3xl overflow-hidden shadow-2xl border border-accent-purple/20">
+          <div className="aspect-video relative rounded-3xl overflow-hidden shadow-2xl border border-accent-purple/20 bg-dark-bg">
             <Image
               src={featuredImage.url}
               alt={featuredImage.alt || article.title || ''}
               fill
-              className="object-cover transition-all duration-700"
+              className="object-contain transition-all duration-700"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-gothic-purple/20 via-transparent to-gothic-crimson/20" />
+            <div className="absolute inset-0 bg-gradient-to-br from-gothic-purple/20 via-transparent to-gothic-crimson/20 pointer-events-none" />
           </div>
         </div>
       )}
