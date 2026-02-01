@@ -118,12 +118,12 @@ export default async function HomePage({ locale }: HomePageProps) {
             {latestArticle && latestArticleImage?.url && (
               <div className="relative max-w-2xl mx-auto">
                 <a href={`/${locale}/articles/${latestArticle.slug}`} className="group block">
-                  <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-accent-red/20">
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-accent-red/20 bg-dark-bg">
                     <Image
                       src={latestArticleImage.url}
                       alt={latestArticleImage.alt || latestArticle.title || ''}
                       fill
-                      className="object-cover transition-all duration-700"
+                      className="object-contain transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-accent-red/10 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
@@ -223,14 +223,15 @@ export default async function HomePage({ locale }: HomePageProps) {
                   }}
                 >
                   {featuredImage?.url && (
-                    <div className="relative w-full md:w-2/5 aspect-[16/10] overflow-hidden rounded-2xl">
+                    <div className="relative w-full md:w-2/5 h-80 rounded-2xl bg-dark-bg flex items-center justify-center">
                       <Image
                         src={featuredImage.url}
                         alt={featuredImage.alt || article.title || ''}
-                        fill
-                        className="object-cover opacity-90 group-hover:opacity-100 transition-all duration-700"
+                        width={featuredImage.width || 800}
+                        height={featuredImage.height || 600}
+                        className="max-w-full max-h-full object-contain opacity-90 group-hover:opacity-100 transition-all duration-700 rounded-2xl"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-br from-gothic-purple/30 via-transparent to-gothic-crimson/30 group-hover:opacity-0 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-gothic-purple/30 via-transparent to-gothic-crimson/30 group-hover:opacity-0 transition-opacity duration-500 pointer-events-none" />
                     </div>
                   )}
                   <div className="w-full md:w-3/5 space-y-3 p-4">
