@@ -58,8 +58,8 @@ export default function ImageGalleryClient({ images, columns }: ImageGalleryClie
               <img
                 src={img.url}
                 alt={img.alt || ''}
-                className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                style={{ margin: 0, padding: 0, display: 'block', verticalAlign: 'top' }}
+                className="absolute inset-0 !w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                style={{ margin: 0, padding: 0, display: 'block', width: '100% !important' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
