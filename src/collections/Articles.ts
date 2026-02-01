@@ -37,6 +37,39 @@ const generateSlug = (text: string): string => {
     .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
 }
 
+// Extract first sentence from Lexical editor content
+const extractFirstSentence = (content: any): string => {
+  if (!content?.root?.children) return ''
+
+  // Find first paragraph with text
+  for (const node of content.root.children) {
+    if (node.type === 'paragraph' && node.children) {
+      let fullText = ''
+
+      // Concatenate all text nodes in the paragraph
+      for (const child of node.children) {
+        if (child.type === 'text' && child.text) {
+          fullText += child.text
+        }
+      }
+
+      if (fullText) {
+        // Extract first sentence (until . ! or ?)
+        const match = fullText.match(/^[^.!?]+[.!?]/)
+        const sentence = match ? match[0] : fullText
+
+        // Limit to 160 characters for SEO
+        if (sentence.length > 160) {
+          return sentence.substring(0, 157) + '...'
+        }
+        return sentence
+      }
+    }
+  }
+
+  return ''
+}
+
 // Custom block for single image
 const ImageBlock = {
   slug: 'image',
@@ -221,10 +254,10 @@ export const Articles: CollectionConfig = {
             {
               name: 'excerpt',
               type: 'textarea',
-              required: true,
+              required: false,
               localized: true,
               admin: {
-                description: 'Short description for article cards and SEO',
+                description: 'Auto-generated from first sentence. You can override if needed.',
               },
             },
             {
@@ -345,6 +378,14 @@ export const Articles: CollectionConfig = {
         // Auto-generate slug from title if not provided
         if (data.title && !data.slug) {
           data.slug = generateSlug(data.title)
+        }
+
+        // Auto-generate excerpt from first sentence if not provided
+        if (!data.excerpt && data.content) {
+          const firstSentence = extractFirstSentence(data.content)
+          if (firstSentence) {
+            data.excerpt = firstSentence
+          }
         }
 
         return data
