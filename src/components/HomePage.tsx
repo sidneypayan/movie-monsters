@@ -1,7 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 import ArticleCard from '@/components/ArticleCard'
-import NewsletterSignup from '@/components/NewsletterSignup'
+// import NewsletterSignup from '@/components/NewsletterSignup'
 import VisitorCounter from '@/components/VisitorCounter'
 import type { Article } from '@/payload-types'
 import Image from 'next/image'
@@ -291,7 +291,7 @@ export default async function HomePage({ locale }: HomePageProps) {
       )}
 
       {/* Newsletter - Organic centered */}
-      <section className="py-32 relative">
+      {/* <section className="py-32 relative">
         <div className="container mx-auto px-4 max-w-3xl text-center relative z-10">
           <h2 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title mb-8 drop-shadow-[0_0_30px_rgba(220,38,38,0.3)] oozing-divider">
             {t('newsletter').split(' ').map((word, i, arr) => {
@@ -309,7 +309,7 @@ export default async function HomePage({ locale }: HomePageProps) {
           </p>
           <NewsletterSignup locale={locale} />
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }
