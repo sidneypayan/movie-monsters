@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     articles: Article;
+    dossiers: Dossier;
     categories: Category;
     books: Book;
     newsletter: Newsletter;
@@ -83,6 +84,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
+    dossiers: DossiersSelect<false> | DossiersSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     books: BooksSelect<false> | BooksSelect<true>;
     newsletter: NewsletterSelect<false> | NewsletterSelect<true>;
@@ -272,6 +274,56 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dossiers".
+ */
+export interface Dossier {
+  id: number;
+  title: string;
+  /**
+   * Auto-generated from title. You can edit if needed.
+   */
+  slug: string;
+  /**
+   * Auto-generated from first sentence. You can override if needed.
+   */
+  excerpt?: string | null;
+  category: number | Category;
+  status: 'draft' | 'published';
+  publishedDate: string;
+  author: number | User;
+  featuredImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Override the page title for SEO (optional)
+   */
+  metaTitle?: string | null;
+  /**
+   * SEO meta description (160 characters max)
+   */
+  metaDescription?: string | null;
+  /**
+   * Override featured image for social sharing (optional)
+   */
+  metaImage?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "books".
  */
 export interface Book {
@@ -346,6 +398,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'articles';
         value: number | Article;
+      } | null)
+    | ({
+        relationTo: 'dossiers';
+        value: number | Dossier;
       } | null)
     | ({
         relationTo: 'categories';
@@ -484,6 +540,26 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "articles_select".
  */
 export interface ArticlesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  excerpt?: T;
+  category?: T;
+  status?: T;
+  publishedDate?: T;
+  author?: T;
+  featuredImage?: T;
+  content?: T;
+  metaTitle?: T;
+  metaDescription?: T;
+  metaImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dossiers_select".
+ */
+export interface DossiersSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   excerpt?: T;

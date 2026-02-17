@@ -58,6 +58,12 @@ export default function Navigation({ locale }: { locale: 'en' | 'fr' }) {
               {t('home')}
             </Link>
             <Link
+              href={`/${locale}/dossiers`}
+              className="text-lg uppercase tracking-wider text-text-primary hover:text-accent-red transition-colors neo-gothic-title"
+            >
+              {t('dossiers')}
+            </Link>
+            <Link
               href={`/${locale}/books`}
               className="text-lg uppercase tracking-wider text-text-primary hover:text-accent-red transition-colors neo-gothic-title"
             >

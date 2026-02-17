@@ -1,13 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import type { Article } from '@/payload-types'
+import type { Article, Dossier } from '@/payload-types'
 
 interface ArticleCardProps {
-  article: Article
+  article: Article | Dossier
   locale?: string
+  routePrefix?: string
 }
 
-export default function ArticleCard({ article, locale = 'fr' }: ArticleCardProps) {
+export default function ArticleCard({ article, locale = 'fr', routePrefix = 'articles' }: ArticleCardProps) {
   const featuredImage = typeof article.featuredImage === 'object' && article.featuredImage !== null
     ? article.featuredImage
     : null
@@ -18,7 +19,7 @@ export default function ArticleCard({ article, locale = 'fr' }: ArticleCardProps
 
   return (
     <Link
-      href={`/${locale}/articles/${article.slug}`}
+      href={`/${locale}/${routePrefix}/${article.slug}`}
       className="group block bg-dark-elevated border border-dark-border hover:border-accent-red transition-all duration-300 overflow-hidden"
     >
       {featuredImage && featuredImage.url && (

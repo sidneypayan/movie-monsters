@@ -52,6 +52,45 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  // Check if this is a dossier page
+  const dossierMatch = currentPath.match(/^\/(?:en|fr)\/dossiers\/([^/]+)$/)
+
+  if (dossierMatch) {
+    const currentSlug = dossierMatch[1]
+    const currentLocale = currentPath.startsWith('/fr') ? 'fr' : 'en'
+
+    try {
+      const payload = await getPayload({ config })
+
+      const { docs: dossiers } = await payload.find({
+        collection: 'dossiers',
+        where: {
+          slug: { equals: currentSlug },
+        },
+        locale: currentLocale,
+        limit: 1,
+      })
+
+      if (dossiers.length > 0) {
+        const dossierId = dossiers[0].id
+
+        const targetDossier = await payload.findByID({
+          collection: 'dossiers',
+          id: dossierId,
+          locale: targetLocale,
+        })
+
+        if (targetDossier && targetDossier.slug) {
+          return NextResponse.json({
+            url: `/${targetLocale}/dossiers/${targetDossier.slug}`,
+          })
+        }
+      }
+    } catch (error) {
+      console.error('Error translating dossier URL:', error)
+    }
+  }
+
   // Check if this is a category page
   const categoryMatch = currentPath.match(/^\/(?:en|fr)\/category\/([^/]+)$/)
 

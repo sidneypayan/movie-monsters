@@ -30,24 +30,22 @@ import { ImageBlock, ImageGalleryBlock, YouTubeBlock } from './shared/blocks'
 const generateSlug = (text: string): string => {
   return text
     .toLowerCase()
-    .normalize('NFD') // Decompose accented characters
-    .replace(/[\u0300-\u036f]/g, '') // Remove accents
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
     .trim()
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
 }
 
 // Extract first sentence from Lexical editor content
 const extractFirstSentence = (content: any): string => {
   if (!content?.root?.children) return ''
 
-  // Find first paragraph with text
   for (const node of content.root.children) {
     if (node.type === 'paragraph' && node.children) {
       let fullText = ''
 
-      // Concatenate all text nodes in the paragraph
       for (const child of node.children) {
         if (child.type === 'text' && child.text) {
           fullText += child.text
@@ -55,11 +53,9 @@ const extractFirstSentence = (content: any): string => {
       }
 
       if (fullText) {
-        // Extract first sentence (until . ! or ?)
         const match = fullText.match(/^[^.!?]+[.!?]/)
         const sentence = match ? match[0] : fullText
 
-        // Limit to 160 characters for SEO
         if (sentence.length > 160) {
           return sentence.substring(0, 157) + '...'
         }
@@ -71,11 +67,11 @@ const extractFirstSentence = (content: any): string => {
   return ''
 }
 
-export const Articles: CollectionConfig = {
-  slug: 'articles',
+export const Dossiers: CollectionConfig = {
+  slug: 'dossiers',
   labels: {
-    singular: { en: 'Article', fr: 'Article' },
-    plural: { en: 'Articles', fr: 'Articles' },
+    singular: { en: 'Dossier', fr: 'Dossier' },
+    plural: { en: 'Dossiers', fr: 'Dossiers' },
   },
   admin: {
     useAsTitle: 'title',
@@ -83,7 +79,6 @@ export const Articles: CollectionConfig = {
   },
   access: {
     read: ({ req: { user } }) => {
-      // Public can only see published articles
       if (!user) {
         return { status: { equals: 'published' } }
       }
@@ -211,7 +206,6 @@ export const Articles: CollectionConfig = {
               localized: true,
               editor: lexicalEditor({
                 features: () => [
-                  // Text formatting
                   ParagraphFeature(),
                   BoldFeature(),
                   ItalicFeature(),
@@ -221,27 +215,22 @@ export const Articles: CollectionConfig = {
                   SuperscriptFeature(),
                   InlineCodeFeature(),
 
-                  // Headings
                   HeadingFeature({
                     enabledHeadingSizes: ['h2', 'h3', 'h4'],
                   }),
 
-                  // Lists
                   UnorderedListFeature(),
                   OrderedListFeature(),
                   ChecklistFeature(),
 
-                  // Alignment and indentation
                   AlignFeature(),
                   IndentFeature(),
 
-                  // Links and relationships
                   LinkFeature({
-                    enabledCollections: ['articles'],
+                    enabledCollections: ['articles', 'dossiers'],
                   }),
                   RelationshipFeature(),
 
-                  // Blocks and media
                   BlockquoteFeature(),
                   UploadFeature({
                     collections: {
@@ -259,12 +248,10 @@ export const Articles: CollectionConfig = {
                   }),
                   HorizontalRuleFeature(),
 
-                  // Custom blocks
                   BlocksFeature({
                     blocks: [ImageBlock, ImageGalleryBlock, YouTubeBlock],
                   }),
 
-                  // Toolbars
                   FixedToolbarFeature(),
                   InlineToolbarFeature(),
                 ],
@@ -335,11 +322,9 @@ export const Articles: CollectionConfig = {
             if (users.length > 0) {
               data.author = users[0].id
             } else if (req.user) {
-              // Fallback to current user if Eric not found
               data.author = req.user.id
             }
           } catch (error) {
-            // Fallback to current user on error
             if (req.user) {
               data.author = req.user.id
             }

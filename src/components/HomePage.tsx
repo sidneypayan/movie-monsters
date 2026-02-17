@@ -33,6 +33,17 @@ export default async function HomePage({ locale }: HomePageProps) {
     sort: 'order',
   })
 
+  // Get published dossiers
+  const { docs: allDossiers } = await payload.find({
+    collection: 'dossiers',
+    where: {
+      status: { equals: 'published' },
+    },
+    locale,
+    limit: 6,
+    sort: '-publishedDate',
+  })
+
   // Hero shows the latest published article (most recent)
   const latestArticle = allArticles[0]
   // Recent articles (including the one in hero)
@@ -194,7 +205,8 @@ export default async function HomePage({ locale }: HomePageProps) {
         </section>
       )}
 
-      {/* Articles - Staggered flowing layout */}
+      {/* Dossiers - Staggered flowing layout */}
+      {allDossiers.length > 0 && (
       <section className="py-20 relative z-10">
         <div className="container mx-auto px-4 relative z-10">
           <div className="mb-16 max-w-4xl mx-auto">
@@ -204,17 +216,17 @@ export default async function HomePage({ locale }: HomePageProps) {
           </div>
 
           <div className="max-w-5xl mx-auto space-y-6">
-            {allArticles.slice(1, 7).map((article, index) => {
-              const featuredImage = typeof article.featuredImage === 'object' && article.featuredImage !== null
-                ? article.featuredImage
+            {allDossiers.map((dossier, index) => {
+              const featuredImage = typeof dossier.featuredImage === 'object' && dossier.featuredImage !== null
+                ? dossier.featuredImage
                 : null
 
               const isEven = index % 2 === 0
 
               return (
                 <a
-                  key={article.id}
-                  href={`/${locale}/articles/${article.slug}`}
+                  key={dossier.id}
+                  href={`/${locale}/dossiers/${dossier.slug}`}
                   className={`group flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 items-center hover:scale-[1.02] transition-all duration-500 p-4 rounded-2xl border border-transparent hover:border-accent-red/30 hover:shadow-[0_0_40px_rgba(220,38,38,0.15)]`}
                   style={{
                     marginLeft: isEven ? '0' : 'auto',
@@ -226,7 +238,7 @@ export default async function HomePage({ locale }: HomePageProps) {
                     <div className="relative w-full md:w-2/5 h-80 rounded-2xl bg-dark-bg flex items-center justify-center">
                       <Image
                         src={featuredImage.url}
-                        alt={featuredImage.alt || article.title || ''}
+                        alt={featuredImage.alt || dossier.title || ''}
                         width={featuredImage.width || 800}
                         height={featuredImage.height || 600}
                         className="max-w-full max-h-full object-contain opacity-90 group-hover:opacity-100 transition-all duration-700 rounded-2xl"
@@ -236,16 +248,16 @@ export default async function HomePage({ locale }: HomePageProps) {
                   )}
                   <div className="w-full md:w-3/5 space-y-3 p-4">
                     <h3 className="text-xl md:text-2xl font-light text-text-primary group-hover:text-white transition-colors uppercase tracking-wide">
-                      {article.title}
+                      {dossier.title}
                     </h3>
-                    {article.excerpt && (
+                    {dossier.excerpt && (
                       <p className="text-sm text-text-secondary font-light leading-relaxed line-clamp-2">
-                        {article.excerpt}
+                        {dossier.excerpt}
                       </p>
                     )}
-                    {article.publishedDate && (
+                    {dossier.publishedDate && (
                       <time className="block text-xs text-text-muted uppercase tracking-wider">
-                        {new Date(article.publishedDate).toLocaleDateString(locale, {
+                        {new Date(dossier.publishedDate).toLocaleDateString(locale, {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric'
@@ -259,6 +271,7 @@ export default async function HomePage({ locale }: HomePageProps) {
           </div>
         </div>
       </section>
+      )}
 
       {/* Recent - Flowing grid */}
       {recentArticles.length > 0 && (

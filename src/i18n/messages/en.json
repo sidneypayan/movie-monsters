@@ -4,7 +4,8 @@
     "home": "Home",
     "about": "About",
     "books": "Books",
-    "articles": "Articles"
+    "articles": "Articles",
+    "dossiers": "Dossiers"
   },
   "home": {
     "hero": {
@@ -31,9 +32,9 @@
     "error": "Subscription failed. Please try again."
   },
   "search": {
-    "placeholder": "Search articles...",
+    "placeholder": "Search articles and features...",
     "loading": "Searching...",
-    "noResults": "No articles found"
+    "noResults": "No articles or features found"
   },
   "share": {
     "title": "Share this article"
@@ -69,6 +70,11 @@
     "by": "by",
     "shareArticle": "Share this article",
     "similarArticles": "Similar articles"
+  },
+  "dossier": {
+    "by": "by",
+    "shareDossier": "Share this feature",
+    "similarDossiers": "Similar features"
   },
   "category": {
     "articleCount": "# article(s)",

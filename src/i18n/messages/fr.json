@@ -4,7 +4,8 @@
     "home": "Accueil",
     "about": "À propos",
     "books": "Livres",
-    "articles": "Articles"
+    "articles": "Articles",
+    "dossiers": "Dossiers"
   },
   "home": {
     "hero": {
@@ -31,9 +32,9 @@
     "error": "L'abonnement a échoué. Veuillez réessayer."
   },
   "search": {
-    "placeholder": "Rechercher des articles...",
+    "placeholder": "Rechercher des articles et dossiers...",
     "loading": "Recherche...",
-    "noResults": "Aucun article trouvé"
+    "noResults": "Aucun article ou dossier trouvé"
   },
   "share": {
     "title": "Partager cet article"
@@ -69,6 +70,11 @@
     "by": "par",
     "shareArticle": "Partager cet article",
     "similarArticles": "Articles similaires"
+  },
+  "dossier": {
+    "by": "par",
+    "shareDossier": "Partager ce dossier",
+    "similarDossiers": "Dossiers similaires"
   },
   "category": {
     "articleCount": "# article(s)",

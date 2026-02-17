@@ -11,6 +11,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Articles } from './collections/Articles'
+import { Dossiers } from './collections/Dossiers'
 import { Categories } from './collections/Categories'
 import { Books } from './collections/Books'
 import { Newsletter } from './collections/Newsletter'
@@ -27,7 +28,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Articles, Categories, Books, Newsletter],
+  collections: [Users, Media, Articles, Dossiers, Categories, Books, Newsletter],
   globals: [Biography, SiteStats],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -61,6 +62,17 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { en, fr },
     fallbackLanguage: 'fr',
+    translations: {
+      fr: {
+        general: {
+          createNew: 'Créer',
+          createNewLabel: 'Créer un nouveau {{label}}',
+          none: 'Aucun',
+          noResults: "Aucun {{label}} trouvé. Soit aucun {{label}} n'existe encore, soit aucun ne correspond aux filtres que vous avez spécifiés ci-dessus",
+          noRowsFound: 'Aucun {{label}} trouvé',
+        },
+      },
+    },
   },
 
   plugins: [

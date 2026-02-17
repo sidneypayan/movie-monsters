@@ -14,32 +14,50 @@ export async function GET(request: Request) {
 
   const payload = await getPayload({ config })
 
-  const results = await payload.find({
-    collection: 'articles',
-    where: {
-      and: [
-        {
-          status: { equals: 'published' },
-        },
-        {
-          or: [
-            {
-              title: {
-                contains: query,
-              },
+  const whereClause = {
+    and: [
+      {
+        status: { equals: 'published' },
+      },
+      {
+        or: [
+          {
+            title: {
+              contains: query,
             },
-            {
-              excerpt: {
-                contains: query,
-              },
+          },
+          {
+            excerpt: {
+              contains: query,
             },
-          ],
-        },
-      ],
-    },
-    locale,
-    limit: 20,
-  })
+          },
+        ],
+      },
+    ],
+  }
 
-  return NextResponse.json(results)
+  const [articleResults, dossierResults] = await Promise.all([
+    payload.find({
+      collection: 'articles',
+      where: whereClause,
+      locale,
+      limit: 20,
+    }),
+    payload.find({
+      collection: 'dossiers',
+      where: whereClause,
+      locale,
+      limit: 20,
+    }),
+  ])
+
+  const combinedDocs = [
+    ...articleResults.docs.map((doc) => ({ ...doc, _collection: 'articles' as const })),
+    ...dossierResults.docs.map((doc) => ({ ...doc, _collection: 'dossiers' as const })),
+  ]
+
+  return NextResponse.json({
+    docs: combinedDocs,
+    totalDocs: articleResults.totalDocs + dossierResults.totalDocs,
+  })
 }
