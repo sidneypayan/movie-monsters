@@ -1,4 +1,4 @@
-import { getPayload } from 'payload'
+import { getPayload, Where } from 'payload'
 import config from '@/payload.config'
 import { NextResponse } from 'next/server'
 
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
 
   const payload = await getPayload({ config })
 
-  const whereClause = {
+  const whereClause: Where = {
     and: [
       {
         status: { equals: 'published' },
