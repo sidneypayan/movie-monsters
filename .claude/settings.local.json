@@ -48,7 +48,19 @@
       "Bash(NODE_OPTIONS=--no-deprecation npx dotenv:*)",
       "Bash(npm run build:*)",
       "Bash(pnpm payload migrate:status:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(node:*)",
+      "WebFetch(domain:movie-monsters.com)",
+      "mcp__ide__getDiagnostics",
+      "Bash(pnpm generate:importmap:*)",
+      "Bash(npx pnpm:*)",
+      "Bash(openssl rand:*)",
+      "Bash(cd:*)",
+      "Bash(timeout 30 pnpm dev:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(npx next lint:*)",
+      "Bash(npx payload generate:types:*)",
+      "Bash(npx payload migrate:create:*)"
     ]
   }
 }

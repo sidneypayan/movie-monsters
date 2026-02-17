@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 export const Books: CollectionConfig = {
   slug: 'books',
+  labels: {
+    singular: { en: 'Book', fr: 'Livre' },
+    plural: { en: 'Books', fr: 'Livres' },
+  },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'publicationDate', 'order'],
@@ -16,24 +20,28 @@ export const Books: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      label: { en: 'Title', fr: 'Titre' },
       required: true,
       localized: true,
     },
     {
       name: 'description',
       type: 'textarea',
+      label: 'Description',
       required: true,
       localized: true,
     },
     {
       name: 'coverImage',
       type: 'upload',
+      label: { en: 'Cover Image', fr: 'Image de couverture' },
       relationTo: 'media',
       required: true,
     },
     {
       name: 'publicationDate',
       type: 'date',
+      label: { en: 'Publication Date', fr: 'Date de publication' },
       required: true,
       admin: {
         date: {
@@ -44,22 +52,24 @@ export const Books: CollectionConfig = {
     {
       name: 'purchaseLinks',
       type: 'array',
-      label: 'Purchase Links',
+      label: { en: 'Purchase Links', fr: "Liens d'achat" },
       fields: [
         {
           name: 'platform',
           type: 'select',
+          label: { en: 'Platform', fr: 'Plateforme' },
           options: [
             { label: 'Amazon', value: 'amazon' },
             { label: 'Fnac', value: 'fnac' },
             { label: 'Cultura', value: 'cultura' },
-            { label: 'Other', value: 'other' },
+            { label: { en: 'Other', fr: 'Autre' }, value: 'other' },
           ],
           required: true,
         },
         {
           name: 'url',
           type: 'text',
+          label: 'URL',
           required: true,
           validate: (value: unknown) => {
             if (typeof value === 'string' && !value.startsWith('http')) {
@@ -71,6 +81,7 @@ export const Books: CollectionConfig = {
         {
           name: 'customLabel',
           type: 'text',
+          label: { en: 'Custom Label', fr: 'Libellé personnalisé' },
           localized: true,
           admin: {
             condition: (_data: any, siblingData: any) => siblingData?.platform === 'other',
@@ -81,9 +92,13 @@ export const Books: CollectionConfig = {
     {
       name: 'order',
       type: 'number',
+      label: { en: 'Order', fr: 'Ordre' },
       admin: {
         position: 'sidebar',
-        description: 'Display order (newest books first = lower number)',
+        description: {
+          en: 'Display order (newest books first = lower number)',
+          fr: "Ordre d'affichage (livres récents en premier = nombre plus petit)",
+        },
       },
       defaultValue: 0,
     },

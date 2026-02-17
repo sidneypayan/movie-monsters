@@ -1,7 +1,20 @@
 import type { CollectionConfig } from 'payload'
 
+const generateAltFromFilename = (filename: string): string => {
+  return filename
+    .replace(/\.[^.]+$/, '') // Remove extension
+    .replace(/[-_]+/g, ' ') // Replace hyphens/underscores with spaces
+    .replace(/\s+/g, ' ') // Normalize multiple spaces
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase()) // Capitalize each word
+}
+
 export const Media: CollectionConfig = {
   slug: 'media',
+  labels: {
+    singular: { en: 'Media', fr: 'Média' },
+    plural: { en: 'Media', fr: 'Médias' },
+  },
   access: {
     read: () => true,
     create: ({ req: { user } }) => !!user,
@@ -39,13 +52,28 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
+      label: { en: 'Alt Text', fr: 'Texte alternatif' },
       required: true,
       localized: true,
     },
     {
       name: 'caption',
       type: 'text',
+      label: { en: 'Caption', fr: 'Légende' },
       localized: true,
     },
   ],
+  hooks: {
+    beforeChange: [
+      ({ data, req }) => {
+        if (data && !data.alt) {
+          const filename = req.file?.name || data.filename
+          if (filename) {
+            data.alt = generateAltFromFilename(filename)
+          }
+        }
+        return data
+      },
+    ],
+  },
 }

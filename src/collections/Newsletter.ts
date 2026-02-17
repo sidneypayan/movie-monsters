@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 export const Newsletter: CollectionConfig = {
   slug: 'newsletter',
+  labels: {
+    singular: { en: 'Subscriber', fr: 'Abonné' },
+    plural: { en: 'Subscribers', fr: 'Abonnés' },
+  },
   admin: {
     useAsTitle: 'email',
     defaultColumns: ['email', 'status', 'subscribedAt'],
@@ -17,6 +21,7 @@ export const Newsletter: CollectionConfig = {
     {
       name: 'email',
       type: 'email',
+      label: 'Email',
       required: true,
       unique: true,
       index: true,
@@ -24,9 +29,10 @@ export const Newsletter: CollectionConfig = {
     {
       name: 'status',
       type: 'select',
+      label: { en: 'Status', fr: 'Statut' },
       options: [
-        { label: 'Subscribed', value: 'subscribed' },
-        { label: 'Unsubscribed', value: 'unsubscribed' },
+        { label: { en: 'Subscribed', fr: 'Abonné' }, value: 'subscribed' },
+        { label: { en: 'Unsubscribed', fr: 'Désabonné' }, value: 'unsubscribed' },
       ],
       defaultValue: 'subscribed',
       required: true,
@@ -34,6 +40,7 @@ export const Newsletter: CollectionConfig = {
     {
       name: 'subscribedAt',
       type: 'date',
+      label: { en: 'Subscribed At', fr: "Date d'abonnement" },
       admin: {
         readOnly: true,
       },
@@ -41,12 +48,16 @@ export const Newsletter: CollectionConfig = {
     {
       name: 'locale',
       type: 'select',
+      label: { en: 'Language', fr: 'Langue' },
       options: [
         { label: 'English', value: 'en' },
         { label: 'Français', value: 'fr' },
       ],
       admin: {
-        description: 'Preferred language for newsletters',
+        description: {
+          en: 'Preferred language for newsletters',
+          fr: 'Langue préférée pour les newsletters',
+        },
       },
     },
   ],
