@@ -60,7 +60,12 @@
       "Bash(pnpm lint:*)",
       "Bash(npx next lint:*)",
       "Bash(npx payload generate:types:*)",
-      "Bash(npx payload migrate:create:*)"
+      "Bash(npx payload migrate:create:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:payloadcms.com)",
+      "Bash(pnpm compress-media:*)",
+      "Bash(npx cross-env NODE_OPTIONS=--no-deprecation npx dotenv -e .env -- npx tsx ./src/scripts/compress-media.ts)",
+      "Bash(npx cross-env NODE_OPTIONS=--no-deprecation npx dotenv -e .env -- npx tsx ./src/scripts/cleanup-orphans.ts)"
     ]
   }
 }

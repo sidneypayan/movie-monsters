@@ -1,6 +1,7 @@
 import ArticlePage from '@/components/ArticlePage'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import { draftMode } from 'next/headers'
 
 // Revalidate every 60 seconds - ISR for dynamic content
 export const revalidate = 60
@@ -14,7 +15,8 @@ interface ArticlePageRouteProps {
 
 export default async function LocaleArticlePage({ params }: ArticlePageRouteProps) {
   const { slug, locale } = await params
-  return <ArticlePage slug={slug} locale={locale} />
+  const { isEnabled: isPreview } = await draftMode()
+  return <ArticlePage slug={slug} locale={locale} isPreview={isPreview} />
 }
 
 export async function generateStaticParams() {

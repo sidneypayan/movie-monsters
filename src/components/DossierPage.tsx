@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import RichText from '@/components/RichText'
 import ShareButtons from '@/components/ShareButtons'
+import PreviewBanner from '@/components/PreviewBanner'
 import ArticleCard from '@/components/ArticleCard'
 import type { Dossier } from '@/payload-types'
 import { getTranslations } from 'next-intl/server'
@@ -12,21 +13,25 @@ import { getTranslations } from 'next-intl/server'
 interface DossierPageProps {
   slug: string
   locale: 'en' | 'fr'
+  isPreview?: boolean
 }
 
-export default async function DossierPage({ slug, locale }: DossierPageProps) {
+export default async function DossierPage({ slug, locale, isPreview }: DossierPageProps) {
   const t = await getTranslations('dossier')
   const payload = await getPayload({ config })
 
-  // Fetch the dossier
+  // Fetch the dossier — skip status filter in preview mode
+  const where: Record<string, any> = { slug: { equals: slug } }
+  if (!isPreview) {
+    where.status = { equals: 'published' }
+  }
+
   const { docs: dossiers } = await payload.find({
     collection: 'dossiers',
-    where: {
-      slug: { equals: slug },
-      status: { equals: 'published' },
-    },
+    where,
     locale,
     limit: 1,
+    draft: isPreview || undefined,
   })
 
   const dossier = dossiers[0]
@@ -62,6 +67,7 @@ export default async function DossierPage({ slug, locale }: DossierPageProps) {
 
   return (
     <article className="bg-dark-bg min-h-screen">
+      {isPreview && <PreviewBanner />}
       {/* Dossier Header */}
       <header className="relative pt-32 pb-20">
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">
@@ -117,7 +123,13 @@ export default async function DossierPage({ slug, locale }: DossierPageProps) {
       {/* Dossier Content */}
       <div className="container mx-auto px-4 py-16 max-w-4xl relative z-10">
         <div className="prose prose-invert prose-xl max-w-none">
-          <RichText content={dossier.content} />
+          <RichText
+            content={dossier.content}
+            gallery={{
+              images: (dossier as any).galleryImages,
+              columns: (dossier as any).galleryColumns,
+            }}
+          />
         </div>
 
         {/* Share Buttons */}

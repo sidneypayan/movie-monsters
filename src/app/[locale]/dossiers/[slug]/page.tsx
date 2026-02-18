@@ -1,6 +1,7 @@
 import DossierPage from '@/components/DossierPage'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import { draftMode } from 'next/headers'
 
 // Revalidate every 60 seconds - ISR for dynamic content
 export const revalidate = 60
@@ -14,7 +15,8 @@ interface DossierPageRouteProps {
 
 export default async function LocaleDossierPage({ params }: DossierPageRouteProps) {
   const { slug, locale } = await params
-  return <DossierPage slug={slug} locale={locale} />
+  const { isEnabled: isPreview } = await draftMode()
+  return <DossierPage slug={slug} locale={locale} isPreview={isPreview} />
 }
 
 export async function generateStaticParams() {

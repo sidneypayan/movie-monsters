@@ -24,7 +24,7 @@ import {
   FixedToolbarFeature,
   InlineToolbarFeature,
 } from '@payloadcms/richtext-lexical'
-import { ImageBlock, ImageGalleryBlock, YouTubeBlock } from './shared/blocks'
+import { ImageBlock, GalleryPlaceholderBlock, YouTubeBlock } from './shared/blocks'
 
 // Generate URL-friendly slug from text
 const generateSlug = (text: string): string => {
@@ -80,6 +80,11 @@ export const Articles: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'author', 'publishedDate', 'status'],
+    preview: (doc, { locale }) => {
+      const slug = doc?.slug
+      if (!slug) return ''
+      return `/api/preview?collection=articles&slug=${slug}&locale=${locale}&secret=${process.env.PAYLOAD_PREVIEW_SECRET}`
+    },
   },
   access: {
     read: ({ req: { user } }) => {
@@ -261,7 +266,7 @@ export const Articles: CollectionConfig = {
 
                   // Custom blocks
                   BlocksFeature({
-                    blocks: [ImageBlock, ImageGalleryBlock, YouTubeBlock],
+                    blocks: [ImageBlock, GalleryPlaceholderBlock, YouTubeBlock],
                   }),
 
                   // Toolbars
@@ -269,6 +274,35 @@ export const Articles: CollectionConfig = {
                   InlineToolbarFeature(),
                 ],
               }),
+            },
+          ],
+        },
+        {
+          label: { en: 'Gallery', fr: 'Galerie' },
+          fields: [
+            {
+              name: 'galleryImages',
+              type: 'upload',
+              relationTo: 'media',
+              hasMany: true,
+              label: { en: 'Gallery Images', fr: 'Images de la galerie' },
+              admin: {
+                description: {
+                  en: 'Select multiple images, then insert the gallery anywhere in the content using the "Image Gallery" block.',
+                  fr: "Sélectionnez plusieurs images, puis insérez la galerie où vous voulez dans le contenu avec le bloc \"Galerie d'images\".",
+                },
+              },
+            },
+            {
+              name: 'galleryColumns',
+              type: 'select',
+              label: { en: 'Number of Columns', fr: 'Nombre de colonnes' },
+              options: [
+                { label: { en: '2 Columns', fr: '2 Colonnes' }, value: '2' },
+                { label: { en: '3 Columns', fr: '3 Colonnes' }, value: '3' },
+                { label: { en: '4 Columns', fr: '4 Colonnes' }, value: '4' },
+              ],
+              defaultValue: '3',
             },
           ],
         },

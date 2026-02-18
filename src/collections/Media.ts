@@ -15,6 +15,12 @@ export const Media: CollectionConfig = {
     singular: { en: 'Media', fr: 'Média' },
     plural: { en: 'Media', fr: 'Médias' },
   },
+  admin: {
+    pagination: {
+      defaultLimit: 100,
+      limits: [50, 100],
+    },
+  },
   access: {
     read: () => true,
     create: ({ req: { user } }) => !!user,
@@ -24,27 +30,52 @@ export const Media: CollectionConfig = {
   upload: {
     staticDir: 'media',
     mimeTypes: ['image/*'],
+    // Compress and limit original image size
+    resizeOptions: {
+      width: 2560,
+      height: 2560,
+      fit: 'inside',
+      withoutEnlargement: true,
+    },
+    formatOptions: {
+      format: 'webp',
+      options: {
+        quality: 82,
+      },
+    },
     imageSizes: [
       {
         name: 'thumbnail',
         width: 400,
         height: 250,
         position: 'centre',
+        formatOptions: {
+          format: 'webp',
+          options: { quality: 75 },
+        },
       },
       {
         name: 'card',
         width: 800,
         height: 500,
         position: 'centre',
+        formatOptions: {
+          format: 'webp',
+          options: { quality: 80 },
+        },
       },
       {
         name: 'hero',
         width: 1920,
         height: 1080,
         position: 'centre',
+        formatOptions: {
+          format: 'webp',
+          options: { quality: 82 },
+        },
       },
     ],
-    adminThumbnail: 'thumbnail',
+    adminThumbnail: 'card',
     focalPoint: true,
     crop: true,
   },

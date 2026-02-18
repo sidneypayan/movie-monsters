@@ -5,6 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import RichText from '@/components/RichText'
 import ShareButtons from '@/components/ShareButtons'
+import PreviewBanner from '@/components/PreviewBanner'
+
 import ArticleCard from '@/components/ArticleCard'
 import type { Article } from '@/payload-types'
 import { getTranslations } from 'next-intl/server'
@@ -12,21 +14,25 @@ import { getTranslations } from 'next-intl/server'
 interface ArticlePageProps {
   slug: string
   locale: 'en' | 'fr'
+  isPreview?: boolean
 }
 
-export default async function ArticlePage({ slug, locale }: ArticlePageProps) {
+export default async function ArticlePage({ slug, locale, isPreview }: ArticlePageProps) {
   const t = await getTranslations('article')
   const payload = await getPayload({ config })
 
-  // Fetch the article
+  // Fetch the article — skip status filter in preview mode
+  const where: Record<string, any> = { slug: { equals: slug } }
+  if (!isPreview) {
+    where.status = { equals: 'published' }
+  }
+
   const { docs: articles } = await payload.find({
     collection: 'articles',
-    where: {
-      slug: { equals: slug },
-      status: { equals: 'published' },
-    },
+    where,
     locale,
     limit: 1,
+    draft: isPreview || undefined,
   })
 
   const article = articles[0]
@@ -62,6 +68,7 @@ export default async function ArticlePage({ slug, locale }: ArticlePageProps) {
 
   return (
     <article className="bg-dark-bg min-h-screen">
+      {isPreview && <PreviewBanner />}
       {/* Article Header */}
       <header className="relative pt-32 pb-20">
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">
@@ -117,7 +124,13 @@ export default async function ArticlePage({ slug, locale }: ArticlePageProps) {
       {/* Article Content */}
       <div className="container mx-auto px-4 py-16 max-w-4xl relative z-10">
         <div className="prose prose-invert prose-xl max-w-none">
-          <RichText content={article.content} />
+          <RichText
+            content={article.content}
+            gallery={{
+              images: (article as any).galleryImages,
+              columns: (article as any).galleryColumns,
+            }}
+          />
         </div>
 
         {/* Share Buttons */}

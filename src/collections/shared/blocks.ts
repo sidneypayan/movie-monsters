@@ -35,46 +35,25 @@ export const ImageBlock = {
   ],
 }
 
-// Custom block for image galleries
-export const ImageGalleryBlock = {
-  slug: 'image-gallery',
-  interfaceName: 'ImageGalleryBlock',
+// Lightweight gallery placeholder (no upload fields — images are managed in the Gallery tab)
+export const GalleryPlaceholderBlock = {
+  slug: 'gallery',
+  interfaceName: 'GalleryPlaceholderBlock',
   labels: {
     singular: { en: 'Image Gallery', fr: "Galerie d'images" },
     plural: { en: 'Image Galleries', fr: "Galeries d'images" },
   },
   fields: [
     {
-      name: 'images',
-      type: 'array' as const,
-      label: 'Images',
-      minRows: 2,
-      maxRows: 12,
-      fields: [
-        {
-          name: 'image',
-          type: 'upload' as const,
-          relationTo: 'media' as const,
-          required: true,
+      name: 'placeholder',
+      type: 'text' as const,
+      admin: {
+        readOnly: true,
+        description: {
+          en: 'The gallery images from the Gallery tab will be displayed here.',
+          fr: "Les images de l'onglet Galerie seront affichées ici.",
         },
-        {
-          name: 'caption',
-          type: 'text' as const,
-          label: { en: 'Caption', fr: 'Légende' },
-          localized: true,
-        },
-      ],
-    },
-    {
-      name: 'columns',
-      type: 'select' as const,
-      label: { en: 'Number of Columns', fr: 'Nombre de colonnes' },
-      options: [
-        { label: { en: '2 Columns', fr: '2 Colonnes' }, value: '2' },
-        { label: { en: '3 Columns', fr: '3 Colonnes' }, value: '3' },
-        { label: { en: '4 Columns', fr: '4 Colonnes' }, value: '4' },
-      ],
-      defaultValue: '3',
+      },
     },
   ],
 }

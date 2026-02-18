@@ -106,9 +106,7 @@ export interface Config {
     'site-stats': SiteStatsSelect<false> | SiteStatsSelect<true>;
   };
   locale: 'fr' | 'en';
-  user: User & {
-    collection: 'users';
-  };
+  user: User;
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -157,6 +155,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -241,6 +240,11 @@ export interface Article {
     [k: string]: unknown;
   };
   /**
+   * Select multiple images, then insert the gallery anywhere in the content using the "Image Gallery" block.
+   */
+  galleryImages?: (number | Media)[] | null;
+  galleryColumns?: ('2' | '3' | '4') | null;
+  /**
    * Override the page title for SEO (optional)
    */
   metaTitle?: string | null;
@@ -307,6 +311,11 @@ export interface Dossier {
     };
     [k: string]: unknown;
   };
+  /**
+   * Select multiple images, then insert the gallery anywhere in the content using the "Image Gallery" block.
+   */
+  galleryImages?: (number | Media)[] | null;
+  galleryColumns?: ('2' | '3' | '4') | null;
   /**
    * Override the page title for SEO (optional)
    */
@@ -549,6 +558,8 @@ export interface ArticlesSelect<T extends boolean = true> {
   author?: T;
   featuredImage?: T;
   content?: T;
+  galleryImages?: T;
+  galleryColumns?: T;
   metaTitle?: T;
   metaDescription?: T;
   metaImage?: T;
@@ -569,6 +580,8 @@ export interface DossiersSelect<T extends boolean = true> {
   author?: T;
   featuredImage?: T;
   content?: T;
+  galleryImages?: T;
+  galleryColumns?: T;
   metaTitle?: T;
   metaDescription?: T;
   metaImage?: T;
@@ -755,20 +768,16 @@ export interface ImageBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageGalleryBlock".
+ * via the `definition` "GalleryPlaceholderBlock".
  */
-export interface ImageGalleryBlock {
-  images?:
-    | {
-        image: number | Media;
-        caption?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  columns?: ('2' | '3' | '4') | null;
+export interface GalleryPlaceholderBlock {
+  /**
+   * The gallery images from the Gallery tab will be displayed here.
+   */
+  placeholder?: string | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'image-gallery';
+  blockType: 'gallery';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

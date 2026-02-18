@@ -1,0 +1,24 @@
+/* Larger media thumbnails in table/list view */
+.file__thumbnail {
+  max-width: calc(var(--base) * 6) !important;
+  height: calc(var(--base) * 6) !important;
+  border-radius: var(--style-radius-s);
+  overflow: hidden;
+}
+
+.file__thumbnail img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* Larger thumbnails in the grid/card view */
+.thumbnail--size-small {
+  max-height: calc(var(--base) * 8) !important;
+  width: calc(var(--base) * 8) !important;
+}
+
+.thumbnail--size-medium {
+  max-height: calc(var(--base) * 10) !important;
+  width: calc(var(--base) * 10) !important;
+}
