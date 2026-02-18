@@ -50,7 +50,7 @@ const createConverters = (gallery?: GalleryData | null): JSXConvertersFunction =
               height: image.height || 600,
             }
           })
-          .filter(Boolean)
+          .filter((img): img is NonNullable<typeof img> => img !== null)
 
         if (galleryImages.length === 0) return null
 
