@@ -2,19 +2,13 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import Image from 'next/image'
 import RichText from '@/components/RichText'
-import { getTranslations } from 'next-intl/server'
 
-interface AboutPageProps {
-  locale: 'en' | 'fr'
-}
-
-export default async function AboutPage({ locale }: AboutPageProps) {
-  const t = await getTranslations('about')
+export default async function AboutPage() {
   const payload = await getPayload({ config })
 
   const biography = await payload.findGlobal({
     slug: 'biography',
-    locale,
+    locale: 'fr',
   })
 
   const authorPhoto = typeof biography.authorPhoto === 'object' && biography.authorPhoto !== null
@@ -22,7 +16,7 @@ export default async function AboutPage({ locale }: AboutPageProps) {
     : null
 
   const platformIcons: Record<string, string> = {
-    twitter: '𝕏',
+    twitter: '\uD835\uDD4F',
     facebook: 'F',
     instagram: 'IG',
     linkedin: 'in',
@@ -58,7 +52,7 @@ export default async function AboutPage({ locale }: AboutPageProps) {
                   {biography.authorName}
                 </h1>
                 <p className="text-xl md:text-2xl text-text-secondary font-light max-w-2xl drop-shadow-[0_0_20px_rgba(0,0,0,0.9)]">
-                  {t('subtitle')}
+                  {"D\u00E9couvrez l\u2019univers de Movie Monsters"}
                 </p>
               </div>
             </div>
@@ -87,7 +81,7 @@ export default async function AboutPage({ locale }: AboutPageProps) {
                       rel="noopener noreferrer"
                       className="px-4 py-2 bg-dark-bg border border-accent-purple/30 text-text-primary rounded-full hover:border-accent-purple hover:bg-accent-purple/10 transition-all duration-300 text-sm uppercase tracking-wider font-light"
                     >
-                      <span className="mr-2">{platformIcons[link.platform] || '→'}</span>
+                      <span className="mr-2">{platformIcons[link.platform] || '\u2192'}</span>
                       <span>{link.platform}</span>
                     </a>
                   ))}
@@ -102,26 +96,26 @@ export default async function AboutPage({ locale }: AboutPageProps) {
 
             <div className="relative z-10">
               <h2 className="text-4xl md:text-5xl font-light mb-8 text-text-primary text-center neo-gothic-title">
-                {t('siteTitle')}
+                Movie Monsters
               </h2>
 
               <div className="space-y-6 text-base md:text-lg leading-relaxed text-text-secondary font-light">
                 <p>
-                  {t('siteDescription1')}
+                  {"Bienvenue sur Movie Monsters, votre destination pour explorer l\u2019\u00E2ge d\u2019or du cin\u00E9ma d\u2019horreur et fantastique."}
                 </p>
 
                 <p>
-                  {t('siteDescription2')}
+                  {"Nous c\u00E9l\u00E9brons les films classiques qui ont d\u00E9fini le genre, des monstres Universal aux chefs-d\u2019\u0153uvre de la Hammer."}
                 </p>
 
                 <div className="border-l-2 border-accent-red pl-6 py-4 my-8 italic bg-accent-purple/5 rounded-r-xl">
                   <p className="text-text-primary font-light">
-                    {t('siteQuote')}
+                    {"Le cin\u00E9ma fantastique nous rappelle que la magie existe encore"}
                   </p>
                 </div>
 
                 <p>
-                  {t('siteDescription3')}
+                  {"Rejoignez-nous dans ce voyage \u00E0 travers l\u2019histoire du cin\u00E9ma fantastique."}
                 </p>
               </div>
             </div>

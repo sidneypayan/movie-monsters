@@ -4,11 +4,10 @@ import type { Article, Dossier } from '@/payload-types'
 
 interface ArticleCardProps {
   article: Article | Dossier
-  locale?: string
   routePrefix?: string
 }
 
-export default function ArticleCard({ article, locale = 'fr', routePrefix = 'articles' }: ArticleCardProps) {
+export default function ArticleCard({ article, routePrefix = 'articles' }: ArticleCardProps) {
   const featuredImage = typeof article.featuredImage === 'object' && article.featuredImage !== null
     ? article.featuredImage
     : null
@@ -19,7 +18,7 @@ export default function ArticleCard({ article, locale = 'fr', routePrefix = 'art
 
   return (
     <Link
-      href={`/${locale}/${routePrefix}/${article.slug}`}
+      href={`/${routePrefix}/${article.slug}`}
       className="group block bg-dark-elevated border border-dark-border hover:border-accent-red transition-all duration-300 overflow-hidden"
     >
       {featuredImage && featuredImage.url && (
@@ -52,7 +51,7 @@ export default function ArticleCard({ article, locale = 'fr', routePrefix = 'art
 
         {article.publishedDate && (
           <time className="text-xs text-text-muted uppercase tracking-wider font-light">
-            {new Date(article.publishedDate).toLocaleDateString(locale, {
+            {new Date(article.publishedDate).toLocaleDateString('fr-FR', {
               year: 'numeric',
               month: 'long',
               day: 'numeric'

@@ -42,20 +42,16 @@ export default buildConfig({
   }),
   sharp,
 
-  // Localization for content
+  // Localization for content (FR uniquement)
   localization: {
     locales: [
       {
         label: 'Français',
         code: 'fr',
       },
-      {
-        label: 'English',
-        code: 'en',
-      },
     ],
     defaultLocale: 'fr',
-    fallback: true,
+    fallback: false,
   },
 
   // i18n for admin UI

@@ -8,13 +8,12 @@ export const revalidate = 60
 interface CategoryPageRouteProps {
   params: Promise<{
     slug: string
-    locale: 'en' | 'fr'
   }>
 }
 
-export default async function LocaleCategoryPage({ params }: CategoryPageRouteProps) {
-  const { slug, locale } = await params
-  return <CategoryPage slug={slug} locale={locale} />
+export default async function FrontendCategoryPage({ params }: CategoryPageRouteProps) {
+  const { slug } = await params
+  return <CategoryPage slug={slug} />
 }
 
 export async function generateStaticParams() {

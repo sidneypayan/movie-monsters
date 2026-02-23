@@ -2,14 +2,10 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { useTranslations } from 'next-intl'
-import { usePathname, useRouter } from 'next/navigation'
+import GoogleTranslate from '@/components/GoogleTranslate'
 
-export default function Navigation({ locale }: { locale: 'en' | 'fr' }) {
+export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const t = useTranslations('navigation')
-  const pathname = usePathname()
-  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,22 +15,6 @@ export default function Navigation({ locale }: { locale: 'en' | 'fr' }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Handle language switch with proper slug translation
-  const handleLanguageSwitch = async (targetLocale: 'en' | 'fr') => {
-    try {
-      const response = await fetch(
-        `/api/translate-url?path=${encodeURIComponent(pathname)}&locale=${targetLocale}`
-      )
-      const data = await response.json()
-      router.push(data.url)
-    } catch (error) {
-      console.error('Error switching language:', error)
-      // Fallback to simple locale change
-      const pathWithoutLocale = pathname.replace(/^\/(en|fr)/, '')
-      router.push(`/${targetLocale}${pathWithoutLocale || ''}`)
-    }
-  }
-
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-dark-bg/95 backdrop-blur-md border-b border-dark-border' : 'bg-transparent'
@@ -43,7 +23,7 @@ export default function Navigation({ locale }: { locale: 'en' | 'fr' }) {
         <div className="flex justify-between items-center py-6">
           {/* Logo */}
           <Link
-            href={`/${locale}`}
+            href="/"
             className="text-2xl font-light text-text-primary hover:text-white transition-colors neo-gothic-title"
           >
             MOVIE MONSTERS
@@ -52,52 +32,33 @@ export default function Navigation({ locale }: { locale: 'en' | 'fr' }) {
           {/* Navigation Links */}
           <div className="flex items-center gap-8">
             <Link
-              href={`/${locale}`}
+              href="/"
               className="text-lg uppercase tracking-wider text-text-primary hover:text-accent-red transition-colors neo-gothic-title"
             >
-              {t('home')}
+              Accueil
             </Link>
             <Link
-              href={`/${locale}/dossiers`}
+              href="/dossiers"
               className="text-lg uppercase tracking-wider text-text-primary hover:text-accent-red transition-colors neo-gothic-title"
             >
-              {t('dossiers')}
+              Dossiers
             </Link>
             <Link
-              href={`/${locale}/books`}
+              href="/books"
               className="text-lg uppercase tracking-wider text-text-primary hover:text-accent-red transition-colors neo-gothic-title"
             >
-              {t('books')}
+              Livres
             </Link>
             <Link
-              href={`/${locale}/about`}
+              href="/about"
               className="text-lg uppercase tracking-wider text-text-primary hover:text-accent-red transition-colors neo-gothic-title"
             >
-              {t('about')}
+              {"\u00C0 propos"}
             </Link>
 
-            {/* Language Switcher */}
-            <div className="flex gap-2 ml-4 border-l border-dark-border pl-4">
-              <button
-                onClick={() => handleLanguageSwitch('en')}
-                className={`px-3 py-1 text-xs uppercase tracking-wider transition-all font-light cursor-pointer ${
-                  locale === 'en'
-                    ? 'text-text-primary border-b border-accent-red'
-                    : 'text-text-muted hover:text-text-secondary'
-                }`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => handleLanguageSwitch('fr')}
-                className={`px-3 py-1 text-xs uppercase tracking-wider transition-all font-light cursor-pointer ${
-                  locale === 'fr'
-                    ? 'text-text-primary border-b border-accent-red'
-                    : 'text-text-muted hover:text-text-secondary'
-                }`}
-              >
-                FR
-              </button>
+            {/* Google Translate Widget */}
+            <div className="ml-4 border-l border-dark-border pl-4">
+              <GoogleTranslate />
             </div>
           </div>
         </div>

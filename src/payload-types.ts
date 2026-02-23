@@ -96,7 +96,7 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('fr' | 'en') | ('fr' | 'en')[];
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | 'fr' | 'fr'[];
   globals: {
     biography: Biography;
     'site-stats': SiteStat;
@@ -105,8 +105,10 @@ export interface Config {
     biography: BiographySelect<false> | BiographySelect<true>;
     'site-stats': SiteStatsSelect<false> | SiteStatsSelect<true>;
   };
-  locale: 'fr' | 'en';
-  user: User;
+  locale: 'fr';
+  user: User & {
+    collection: 'users';
+  };
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -155,7 +157,6 @@ export interface User {
       }[]
     | null;
   password?: string | null;
-  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

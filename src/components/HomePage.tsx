@@ -5,14 +5,8 @@ import ArticleCard from '@/components/ArticleCard'
 import VisitorCounter from '@/components/VisitorCounter'
 import type { Article } from '@/payload-types'
 import Image from 'next/image'
-import { getTranslations } from 'next-intl/server'
 
-interface HomePageProps {
-  locale: 'en' | 'fr'
-}
-
-export default async function HomePage({ locale }: HomePageProps) {
-  const t = await getTranslations('home')
+export default async function HomePage() {
   const payload = await getPayload({ config })
 
   // Get all published articles sorted by date
@@ -21,14 +15,14 @@ export default async function HomePage({ locale }: HomePageProps) {
     where: {
       status: { equals: 'published' },
     },
-    locale,
+    locale: 'fr',
     limit: 12,
     sort: '-publishedDate',
   })
 
   const { docs: categories } = await payload.find({
     collection: 'categories',
-    locale,
+    locale: 'fr',
     limit: 6,
     sort: 'order',
   })
@@ -39,7 +33,7 @@ export default async function HomePage({ locale }: HomePageProps) {
     where: {
       status: { equals: 'published' },
     },
-    locale,
+    locale: 'fr',
     limit: 6,
     sort: '-publishedDate',
   })
@@ -96,7 +90,7 @@ export default async function HomePage({ locale }: HomePageProps) {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-6xl md:text-7xl lg:text-8xl font-light mb-6 text-text-primary neo-gothic-title leading-tight drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]">
-              {t('title').split(' ').map((word, i) => {
+              {'Movie Monsters'.split(' ').map((word, i) => {
                 const lowerWord = word.toLowerCase()
                 const isMonster = lowerWord.includes('monster')
                 const isMovie = lowerWord.includes('movie') || lowerWord.includes('film')
@@ -119,16 +113,16 @@ export default async function HomePage({ locale }: HomePageProps) {
             </h1>
 
             <p className="text-lg md:text-xl text-text-secondary font-light max-w-2xl mx-auto mb-4 drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
-              {t('subtitle')}
+              {"\u00C0 la d\u00E9couverte de l\u2019\u00E2ge d\u2019or du cin\u00E9ma d\u2019horreur et fantastique"}
             </p>
 
             <div className="flex justify-center mb-8">
-              <VisitorCounter locale={locale} />
+              <VisitorCounter />
             </div>
 
             {latestArticle && latestArticleImage?.url && (
               <div className="relative max-w-2xl mx-auto">
-                <a href={`/${locale}/articles/${latestArticle.slug}`} className="group block">
+                <a href={`/articles/${latestArticle.slug}`} className="group block">
                   <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-accent-red/20 bg-dark-bg">
                     <Image
                       src={latestArticleImage.url}
@@ -139,7 +133,7 @@ export default async function HomePage({ locale }: HomePageProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-accent-red/10 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                       <span className="inline-block px-3 py-1 rounded-full bg-accent-red/20 backdrop-blur-sm text-accent-red border border-accent-red/30 text-xs uppercase tracking-wider mb-2">
-                        {t('latest')}
+                        Derniers articles
                       </span>
                       <h2 className="text-xl md:text-2xl font-light text-white mb-2 uppercase tracking-wide">
                         {latestArticle.title}
@@ -163,7 +157,7 @@ export default async function HomePage({ locale }: HomePageProps) {
         <section className="py-20 relative z-10 px-4">
           <div className="container mx-auto px-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-light text-text-primary neo-gothic-title text-center drop-shadow-[0_0_20px_rgba(220,38,38,0.2)] oozing-divider">
-              {t('categories')}
+              {"Cat\u00E9gories"}
             </h2>
           </div>
 
@@ -176,7 +170,7 @@ export default async function HomePage({ locale }: HomePageProps) {
               return (
                 <a
                   key={category.id}
-                  href={`/${locale}/category/${category.slug}`}
+                  href={`/category/${category.slug}`}
                   className="group relative flex-shrink-0 w-72 h-96 overflow-hidden rounded-3xl hover:scale-105 transition-transform duration-500 border border-accent-red/20 hover:border-accent-red/50 shadow-[0_0_30px_rgba(220,38,38,0.1)] hover:shadow-[0_0_50px_rgba(220,38,38,0.3)]"
                 >
                   {featuredImage?.url ? (
@@ -211,7 +205,7 @@ export default async function HomePage({ locale }: HomePageProps) {
         <div className="container mx-auto px-4 relative z-10">
           <div className="mb-16 max-w-4xl mx-auto">
             <h2 className="text-5xl md:text-6xl font-light text-text-primary neo-gothic-title mb-6 text-center drop-shadow-[0_0_25px_rgba(220,38,38,0.25)] oozing-divider">
-              {t('articles')}
+              DOSSIERS
             </h2>
           </div>
 
@@ -226,7 +220,7 @@ export default async function HomePage({ locale }: HomePageProps) {
               return (
                 <a
                   key={dossier.id}
-                  href={`/${locale}/dossiers/${dossier.slug}`}
+                  href={`/dossiers/${dossier.slug}`}
                   className={`group flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 items-center hover:scale-[1.02] transition-all duration-500 p-4 rounded-2xl border border-transparent hover:border-accent-red/30 hover:shadow-[0_0_40px_rgba(220,38,38,0.15)]`}
                   style={{
                     marginLeft: isEven ? '0' : 'auto',
@@ -257,7 +251,7 @@ export default async function HomePage({ locale }: HomePageProps) {
                     )}
                     {dossier.publishedDate && (
                       <time className="block text-xs text-text-muted uppercase tracking-wider">
-                        {new Date(dossier.publishedDate).toLocaleDateString(locale, {
+                        {new Date(dossier.publishedDate).toLocaleDateString('fr-FR', {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric'
@@ -279,7 +273,7 @@ export default async function HomePage({ locale }: HomePageProps) {
           <div className="container mx-auto px-4 relative z-10">
             <div className="mb-16 max-w-4xl mx-auto">
               <h2 className="text-5xl md:text-6xl font-light text-text-primary neo-gothic-title text-center drop-shadow-[0_0_25px_rgba(220,38,38,0.25)] oozing-divider">
-                {t('recent').split(' ').map((word, i, arr) => {
+                {'Articles R\u00E9cents'.split(' ').map((word, i, arr) => {
                   const isLastWord = i === arr.length - 1
                   return (
                     <span key={i} className={isLastWord ? 'text-accent-red' : ''}>
@@ -295,7 +289,6 @@ export default async function HomePage({ locale }: HomePageProps) {
                 <ArticleCard
                   key={article.id}
                   article={article as Article}
-                  locale={locale}
                 />
               ))}
             </div>
@@ -307,20 +300,13 @@ export default async function HomePage({ locale }: HomePageProps) {
       {/* <section className="py-32 relative">
         <div className="container mx-auto px-4 max-w-3xl text-center relative z-10">
           <h2 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title mb-8 drop-shadow-[0_0_30px_rgba(220,38,38,0.3)] oozing-divider">
-            {t('newsletter').split(' ').map((word, i, arr) => {
-              const isLastWord = i === arr.length - 1
-              return (
-                <span key={i} className={isLastWord ? 'text-accent-red' : ''}>
-                  {word}{i < arr.length - 1 ? ' ' : ''}
-                </span>
-              )
-            })}
+            Abonnez-vous à notre newsletter
           </h2>
 
           <p className="text-xl text-text-secondary font-light mb-12 leading-relaxed drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
-            {t('newsletterDescription')}
+            Recevez les derniers articles dans votre boîte mail
           </p>
-          <NewsletterSignup locale={locale} />
+          <NewsletterSignup />
         </div>
       </section> */}
     </div>

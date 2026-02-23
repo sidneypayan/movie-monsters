@@ -5,8 +5,6 @@ import { NextResponse } from 'next/server'
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const query = searchParams.get('q') || ''
-  const localeParam = searchParams.get('locale') || 'fr'
-  const locale = (localeParam === 'en' || localeParam === 'fr') ? localeParam : 'fr' as 'en' | 'fr'
 
   if (!query || query.length < 3) {
     return NextResponse.json({ docs: [], totalDocs: 0 })
@@ -40,13 +38,13 @@ export async function GET(request: Request) {
     payload.find({
       collection: 'articles',
       where: whereClause,
-      locale,
+      locale: 'fr',
       limit: 20,
     }),
     payload.find({
       collection: 'dossiers',
       where: whereClause,
-      locale,
+      locale: 'fr',
       limit: 20,
     }),
   ])

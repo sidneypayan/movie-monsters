@@ -287,6 +287,47 @@
   }
 }
 
+/* Google Translate widget overrides */
+body {
+  top: 0 !important;
+}
+
+.skiptranslate iframe {
+  display: none !important;
+}
+
+#google_translate_element .goog-te-gadget {
+  font-size: 0;
+  color: transparent;
+}
+
+#google_translate_element .goog-te-gadget .goog-te-combo {
+  background: transparent;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #d4d4d4;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+#google_translate_element .goog-te-gadget .goog-te-combo:hover {
+  border-color: rgba(220, 38, 38, 0.6);
+}
+
+#google_translate_element .goog-te-gadget .goog-te-combo option {
+  background: #1a1a2e;
+  color: #d4d4d4;
+}
+
+.goog-te-banner-frame {
+  display: none !important;
+}
+
 /* Vintage poster styles */
 .vintage-poster {
   position: fixed;

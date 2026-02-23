@@ -3,16 +3,13 @@ import config from '@/payload.config'
 import { notFound } from 'next/navigation'
 import ArticleCard from '@/components/ArticleCard'
 import type { Article } from '@/payload-types'
-import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 
 interface CategoryPageProps {
   slug: string
-  locale: 'en' | 'fr'
 }
 
-export default async function CategoryPage({ slug, locale }: CategoryPageProps) {
-  const t = await getTranslations('category')
+export default async function CategoryPage({ slug }: CategoryPageProps) {
   const payload = await getPayload({ config })
 
   // Fetch the category
@@ -21,7 +18,7 @@ export default async function CategoryPage({ slug, locale }: CategoryPageProps) 
     where: {
       slug: { equals: slug },
     },
-    locale,
+    locale: 'fr',
     limit: 1,
   })
 
@@ -38,7 +35,7 @@ export default async function CategoryPage({ slug, locale }: CategoryPageProps) 
       category: { equals: category.id },
       status: { equals: 'published' },
     },
-    locale,
+    locale: 'fr',
     sort: '-publishedDate',
     limit: 50,
   })
@@ -48,10 +45,10 @@ export default async function CategoryPage({ slug, locale }: CategoryPageProps) 
     : null
 
   const articleCountText = articles.length === 0
-    ? t('articleCount', { count: 0 })
+    ? '0 article(s)'
     : articles.length === 1
-    ? t('articleCount', { count: 1 }).replace('#', '1')
-    : t('articleCount', { count: articles.length }).replace('#', articles.length.toString())
+    ? '1 article(s)'
+    : `${articles.length} article(s)`
 
   return (
     <div className="bg-dark-bg min-h-screen">
@@ -107,7 +104,7 @@ export default async function CategoryPage({ slug, locale }: CategoryPageProps) 
                     marginTop: index % 3 === 1 ? '4rem' : '0',
                   }}
                 >
-                  <ArticleCard article={article as Article} locale={locale} />
+                  <ArticleCard article={article as Article} />
                 </div>
               ))}
             </div>
@@ -115,7 +112,7 @@ export default async function CategoryPage({ slug, locale }: CategoryPageProps) 
             <div className="text-center py-20 max-w-2xl mx-auto">
               <div className="bg-dark-elevated/50 backdrop-blur-sm rounded-3xl p-12 border border-gothic-purple-light">
                 <p className="text-xl text-text-secondary font-light">
-                  {t('noArticles')}
+                  {"Aucun article dans cette cat\u00E9gorie pour le moment."}
                 </p>
               </div>
             </div>

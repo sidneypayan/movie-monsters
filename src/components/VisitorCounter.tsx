@@ -4,10 +4,9 @@ import { useEffect, useState } from 'react'
 
 interface VisitorCounterProps {
   className?: string
-  locale?: 'en' | 'fr'
 }
 
-export default function VisitorCounter({ className = '', locale = 'fr' }: VisitorCounterProps) {
+export default function VisitorCounter({ className = '' }: VisitorCounterProps) {
   const [count, setCount] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -25,7 +24,6 @@ export default function VisitorCounter({ className = '', locale = 'fr' }: Visito
         }
       } catch (error) {
         console.error('Failed to increment visitor count:', error)
-        // Si ça échoue, on récupère juste le compteur sans incrémenter
         try {
           const response = await fetch('/api/visitor-count')
           if (response.ok) {
@@ -46,10 +44,6 @@ export default function VisitorCounter({ className = '', locale = 'fr' }: Visito
   if (loading || count === null) {
     return null
   }
-
-  const text = locale === 'fr'
-    ? `${count.toLocaleString('fr-FR')} visites`
-    : `${count.toLocaleString('en-US')} visits`
 
   return (
     <div className={`visitor-counter ${className}`}>
@@ -73,7 +67,7 @@ export default function VisitorCounter({ className = '', locale = 'fr' }: Visito
             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
           />
         </svg>
-        <span className="text-white font-medium">{text}</span>
+        <span className="text-white font-medium">{count.toLocaleString('fr-FR')} visites</span>
       </div>
     </div>
   )

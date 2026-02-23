@@ -8,16 +8,13 @@ import ShareButtons from '@/components/ShareButtons'
 import PreviewBanner from '@/components/PreviewBanner'
 import ArticleCard from '@/components/ArticleCard'
 import type { Dossier } from '@/payload-types'
-import { getTranslations } from 'next-intl/server'
 
 interface DossierPageProps {
   slug: string
-  locale: 'en' | 'fr'
   isPreview?: boolean
 }
 
-export default async function DossierPage({ slug, locale, isPreview }: DossierPageProps) {
-  const t = await getTranslations('dossier')
+export default async function DossierPage({ slug, isPreview }: DossierPageProps) {
   const payload = await getPayload({ config })
 
   // Fetch the dossier — skip status filter in preview mode
@@ -29,7 +26,7 @@ export default async function DossierPage({ slug, locale, isPreview }: DossierPa
   const { docs: dossiers } = await payload.find({
     collection: 'dossiers',
     where,
-    locale,
+    locale: 'fr',
     limit: 1,
     draft: isPreview || undefined,
   })
@@ -60,7 +57,7 @@ export default async function DossierPage({ slug, locale, isPreview }: DossierPa
       status: { equals: 'published' },
       id: { not_equals: dossier.id },
     },
-    locale,
+    locale: 'fr',
     limit: 3,
     sort: '-publishedDate',
   })
@@ -73,7 +70,7 @@ export default async function DossierPage({ slug, locale, isPreview }: DossierPa
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">
           {category && (
             <Link
-              href={`/${locale}/category/${category.slug}`}
+              href={`/category/${category.slug}`}
               className="inline-block px-4 py-2 bg-accent-purple/20 backdrop-blur-sm text-accent-purple border border-accent-purple/30 rounded-full mb-6 hover:bg-accent-purple/30 transition-all duration-300 text-sm uppercase tracking-wider font-light"
             >
               {category.name}
@@ -90,7 +87,7 @@ export default async function DossierPage({ slug, locale, isPreview }: DossierPa
           <div className="flex items-center gap-6 text-text-muted text-sm uppercase tracking-wider font-light">
             {dossier.publishedDate && (
               <time>
-                {new Date(dossier.publishedDate).toLocaleDateString(locale, {
+                {new Date(dossier.publishedDate).toLocaleDateString('fr-FR', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -98,7 +95,7 @@ export default async function DossierPage({ slug, locale, isPreview }: DossierPa
               </time>
             )}
             {author && author.email && (
-              <span>{t('by')} {author.email}</span>
+              <span>par {author.email}</span>
             )}
           </div>
         </div>
@@ -135,7 +132,7 @@ export default async function DossierPage({ slug, locale, isPreview }: DossierPa
         {/* Share Buttons */}
         <div className="mt-16 pt-8 border-t border-dark-border">
           <h3 className="text-xl font-light mb-6 text-text-primary uppercase tracking-wider">
-            {t('shareDossier').split(' ').map((word, i, arr) => {
+            {'Partager ce dossier'.split(' ').map((word, i, arr) => {
               const isLastWord = i === arr.length - 1
               return (
                 <span key={i} className={isLastWord ? 'text-accent-red' : ''}>
@@ -145,7 +142,7 @@ export default async function DossierPage({ slug, locale, isPreview }: DossierPa
             })}
           </h3>
           <ShareButtons
-            url={`https://yoursite.com/${locale}/dossiers/${dossier.slug}`}
+            url={`https://yoursite.com/dossiers/${dossier.slug}`}
             title={dossier.title || ''}
           />
         </div>
@@ -159,7 +156,7 @@ export default async function DossierPage({ slug, locale, isPreview }: DossierPa
           <div className="container mx-auto px-4 relative z-10">
             <div className="mb-16 max-w-4xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-light text-text-primary neo-gothic-title mb-6 text-center">
-                {t('similarDossiers')}
+                Dossiers similaires
               </h2>
               <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-accent-purple to-transparent mx-auto rounded-full" />
             </div>
@@ -169,7 +166,6 @@ export default async function DossierPage({ slug, locale, isPreview }: DossierPa
                 <ArticleCard
                   key={relatedDossier.id}
                   article={relatedDossier as Dossier}
-                  locale={locale}
                   routePrefix="dossiers"
                 />
               ))}

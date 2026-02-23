@@ -1,7 +1,4 @@
 import { withPayload } from '@payloadcms/next/withPayload'
-import createNextIntlPlugin from 'next-intl/plugin'
-
-const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -23,6 +20,30 @@ const nextConfig = {
 
     return webpackConfig
   },
+  async redirects() {
+    return [
+      {
+        source: '/fr',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/en',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/fr/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
+      {
+        source: '/en/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
+    ]
+  },
 }
 
-export default withPayload(withNextIntl(nextConfig), { devBundleServerPackages: false })
+export default withPayload(nextConfig, { devBundleServerPackages: false })

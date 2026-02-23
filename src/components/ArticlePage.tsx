@@ -9,16 +9,13 @@ import PreviewBanner from '@/components/PreviewBanner'
 
 import ArticleCard from '@/components/ArticleCard'
 import type { Article } from '@/payload-types'
-import { getTranslations } from 'next-intl/server'
 
 interface ArticlePageProps {
   slug: string
-  locale: 'en' | 'fr'
   isPreview?: boolean
 }
 
-export default async function ArticlePage({ slug, locale, isPreview }: ArticlePageProps) {
-  const t = await getTranslations('article')
+export default async function ArticlePage({ slug, isPreview }: ArticlePageProps) {
   const payload = await getPayload({ config })
 
   // Fetch the article — skip status filter in preview mode
@@ -30,7 +27,7 @@ export default async function ArticlePage({ slug, locale, isPreview }: ArticlePa
   const { docs: articles } = await payload.find({
     collection: 'articles',
     where,
-    locale,
+    locale: 'fr',
     limit: 1,
     draft: isPreview || undefined,
   })
@@ -61,7 +58,7 @@ export default async function ArticlePage({ slug, locale, isPreview }: ArticlePa
       status: { equals: 'published' },
       id: { not_equals: article.id },
     },
-    locale,
+    locale: 'fr',
     limit: 3,
     sort: '-publishedDate',
   })
@@ -74,7 +71,7 @@ export default async function ArticlePage({ slug, locale, isPreview }: ArticlePa
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">
           {category && (
             <Link
-              href={`/${locale}/category/${category.slug}`}
+              href={`/category/${category.slug}`}
               className="inline-block px-4 py-2 bg-accent-purple/20 backdrop-blur-sm text-accent-purple border border-accent-purple/30 rounded-full mb-6 hover:bg-accent-purple/30 transition-all duration-300 text-sm uppercase tracking-wider font-light"
             >
               {category.name}
@@ -91,7 +88,7 @@ export default async function ArticlePage({ slug, locale, isPreview }: ArticlePa
           <div className="flex items-center gap-6 text-text-muted text-sm uppercase tracking-wider font-light">
             {article.publishedDate && (
               <time>
-                {new Date(article.publishedDate).toLocaleDateString(locale, {
+                {new Date(article.publishedDate).toLocaleDateString('fr-FR', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -99,7 +96,7 @@ export default async function ArticlePage({ slug, locale, isPreview }: ArticlePa
               </time>
             )}
             {author && author.email && (
-              <span>{t('by')} {author.email}</span>
+              <span>par {author.email}</span>
             )}
           </div>
         </div>
@@ -136,7 +133,7 @@ export default async function ArticlePage({ slug, locale, isPreview }: ArticlePa
         {/* Share Buttons */}
         <div className="mt-16 pt-8 border-t border-dark-border">
           <h3 className="text-xl font-light mb-6 text-text-primary uppercase tracking-wider">
-            {t('shareArticle').split(' ').map((word, i, arr) => {
+            {'Partager cet article'.split(' ').map((word, i, arr) => {
               const isLastWord = i === arr.length - 1
               return (
                 <span key={i} className={isLastWord ? 'text-accent-red' : ''}>
@@ -146,7 +143,7 @@ export default async function ArticlePage({ slug, locale, isPreview }: ArticlePa
             })}
           </h3>
           <ShareButtons
-            url={`https://yoursite.com/${locale}/articles/${article.slug}`}
+            url={`https://yoursite.com/articles/${article.slug}`}
             title={article.title || ''}
           />
         </div>
@@ -160,7 +157,7 @@ export default async function ArticlePage({ slug, locale, isPreview }: ArticlePa
           <div className="container mx-auto px-4 relative z-10">
             <div className="mb-16 max-w-4xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-light text-text-primary neo-gothic-title mb-6 text-center">
-                {t('similarArticles')}
+                Articles similaires
               </h2>
               <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-accent-purple to-transparent mx-auto rounded-full" />
             </div>
@@ -170,7 +167,6 @@ export default async function ArticlePage({ slug, locale, isPreview }: ArticlePa
                 <ArticleCard
                   key={relatedArticle.id}
                   article={relatedArticle as Article}
-                  locale={locale}
                 />
               ))}
             </div>

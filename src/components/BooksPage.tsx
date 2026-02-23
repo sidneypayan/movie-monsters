@@ -2,19 +2,13 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import type { Book } from '@/payload-types'
 import Image from 'next/image'
-import { getTranslations } from 'next-intl/server'
 
-interface BooksPageProps {
-  locale: 'en' | 'fr'
-}
-
-export default async function BooksPage({ locale }: BooksPageProps) {
-  const t = await getTranslations('books')
+export default async function BooksPage() {
   const payload = await getPayload({ config })
 
   const { docs: books } = await payload.find({
     collection: 'books',
-    locale,
+    locale: 'fr',
     sort: 'order',
     limit: 100,
   })
@@ -32,7 +26,7 @@ export default async function BooksPage({ locale }: BooksPageProps) {
       <section className="relative mb-20">
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-6xl md:text-7xl font-light text-text-primary neo-gothic-title text-center drop-shadow-[0_0_30px_rgba(220,38,38,0.3)] oozing-divider">
-            {t('title')}
+            Livres
           </h1>
         </div>
       </section>
@@ -84,13 +78,13 @@ export default async function BooksPage({ locale }: BooksPageProps) {
                     <div className="space-y-2">
                       {book.purchaseLinks.map((link, index) => {
                         const platformLabels: Record<string, string> = {
-                          amazon: t('platforms.amazon'),
-                          fnac: t('platforms.fnac'),
-                          cultura: t('platforms.cultura'),
+                          amazon: 'Acheter sur Amazon',
+                          fnac: 'Acheter sur Fnac',
+                          cultura: 'Acheter sur Cultura',
                         }
 
                         const label = link.platform === 'other'
-                          ? link.customLabel || 'Buy'
+                          ? link.customLabel || 'Acheter'
                           : platformLabels[link.platform as keyof typeof platformLabels] || link.platform
 
                         return (
@@ -117,7 +111,7 @@ export default async function BooksPage({ locale }: BooksPageProps) {
         {books.length === 0 && (
           <div className="text-center py-20">
             <p className="text-text-secondary text-lg">
-              {locale === 'fr' ? 'Aucun livre disponible' : 'No books available'}
+              Aucun livre disponible
             </p>
           </div>
         )}

@@ -9,7 +9,6 @@ export async function GET(request: NextRequest) {
   const secret = searchParams.get('secret')
   const collection = searchParams.get('collection')
   const slug = searchParams.get('slug')
-  const locale = searchParams.get('locale') || 'fr'
 
   // Validate secret
   if (secret !== process.env.PAYLOAD_PREVIEW_SECRET) {
@@ -29,7 +28,7 @@ export async function GET(request: NextRequest) {
   const { docs } = await payload.find({
     collection,
     where: { slug: { equals: slug } },
-    locale: locale as 'en' | 'fr',
+    locale: 'fr',
     limit: 1,
     draft: true,
   })
@@ -43,5 +42,5 @@ export async function GET(request: NextRequest) {
   draft.enable()
 
   // Redirect to the page
-  redirect(`/${locale}/${collection}/${slug}`)
+  redirect(`/${collection}/${slug}`)
 }
