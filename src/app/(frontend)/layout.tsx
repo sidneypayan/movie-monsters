@@ -19,7 +19,7 @@ export default async function FrontendLayout({
 }) {
   return (
     <html lang="fr" className={creepster.variable}>
-      <body>
+      <body suppressHydrationWarning>
         <Analytics />
         <VintagePostersBackground />
         <Navigation />

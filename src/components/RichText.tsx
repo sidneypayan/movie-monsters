@@ -92,7 +92,7 @@ interface RichTextProps {
 
 export default function RichText({ content, gallery }: RichTextProps) {
   return (
-    <div className="prose prose-img:max-w-4xl prose-img:mx-auto prose-img:w-4/5">
+    <div className="prose-img:max-w-4xl prose-img:mx-auto prose-img:w-4/5">
       <RichTextRenderer
         data={content}
         converters={createConverters(gallery)}
